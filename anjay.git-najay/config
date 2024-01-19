@@ -1,0 +1,21 @@
+[core]
+	repositoryformatversion = 0
+	filemode = false
+	bare = false
+	logallrefupdates = true
+	symlinks = false
+	ignorecase = true
+[remote "origin"]
+	url = https://username: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@github.com/irzaarivin/cooperation.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[remote "original"]
+	url = https://github.com/irzaarivin/cooperation.git
+	fetch = +refs/heads/*:refs/remotes/original/*
+[branch "main"]
+	remote = origin
+	merge = refs/heads/main
+[pull]
+	rebase = false
+[remote "erlangga"]
+	url = https://erlanggaht93:glpat-S1C2u_D_6fy7bFPTM3wc@gitlab.com/erlanggaht93/cashier-app.git
+	fetch = +refs/heads/*:refs/remotes/erlangga/*

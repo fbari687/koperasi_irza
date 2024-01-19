@@ -1,0 +1,24 @@
+0000000000000000000000000000000000000000 3c16fdfd5132fcca8e3f3c88d8cd42a4e06ee19c Irza Arivin <irzaarivin2005@gmail.com> 1700400449 +0700	commit (initial): Login, Register, SSL Cacert Pem, -Dashboard
+3c16fdfd5132fcca8e3f3c88d8cd42a4e06ee19c 3c16fdfd5132fcca8e3f3c88d8cd42a4e06ee19c Irza Arivin <irzaarivin2005@gmail.com> 1700400470 +0700	Branch: renamed refs/heads/master to refs/heads/main
+3c16fdfd5132fcca8e3f3c88d8cd42a4e06ee19c 4a374a939e5f574580402470ba1b1a706826dc65 Irza Arivin <irzaarivin2005@gmail.com> 1700400559 +0700	commit (amend): Login, Register, SSL Cacert Pem, -Dashboard
+4a374a939e5f574580402470ba1b1a706826dc65 5c958a0572e3f1dd0f08848f152518387faf34ee Irza Arivin <irzaarivin2005@gmail.com> 1700406996 +0700	commit: Users, Fix Menu Sidebar, Logout
+5c958a0572e3f1dd0f08848f152518387faf34ee 96a51874e9fd57bd4f8a8a5e6771e2ec055deb8f Irza Arivin <irzaarivin2005@gmail.com> 1700426033 +0700	commit: -report, -officers, -items
+96a51874e9fd57bd4f8a8a5e6771e2ec055deb8f ba8a6470ab221ee78f44b68c557e9f66bb13591e Irza Arivin <irzaarivin2005@gmail.com> 1700426107 +0700	commit (amend): -Report, -Officers, -Items
+ba8a6470ab221ee78f44b68c557e9f66bb13591e 7e540f1aae192069201ab5aee832a7135f3d1178 Irza Arivin <irzaarivin2005@gmail.com> 1700426137 +0700	pull: Merge made by the 'ort' strategy.
+7e540f1aae192069201ab5aee832a7135f3d1178 858aec38eb5542f00673d54ed7de8d9db87ed490 Irza Arivin <irzaarivin2005@gmail.com> 1700426146 +0700	commit (amend): -Report, -Officers, -Items
+858aec38eb5542f00673d54ed7de8d9db87ed490 253e373e671c345159399ba50f50ed52780d5583 Irza Arivin <irzaarivin2005@gmail.com> 1700432630 +0700	pull: Fast-forward
+253e373e671c345159399ba50f50ed52780d5583 7e072245297181569c5e424a90b145d2aa4e604e Irza Arivin <irzaarivin2005@gmail.com> 1700485345 +0700	commit: Fix .env
+7e072245297181569c5e424a90b145d2aa4e604e c229aa16f7942dc4df9f75c9cd2ae36a5caeb70d Irza Arivin <irzaarivin2005@gmail.com> 1700903180 +0700	pull: Fast-forward
+c229aa16f7942dc4df9f75c9cd2ae36a5caeb70d fc3ec71c8fd392d643321bcb6b7f255264a063e4 Irza Arivin <irzaarivin2005@gmail.com> 1700903809 +0700	commit: Fix error handling
+fc3ec71c8fd392d643321bcb6b7f255264a063e4 2e9b9f895b74ba56765b8f0bf6249724484b7e4b Irza Arivin <irzaarivin2005@gmail.com> 1700920207 +0700	commit: Add Auth API
+2e9b9f895b74ba56765b8f0bf6249724484b7e4b 4e392061fee6f0ef61e5c2aec005429c4a32fab3 Irza Arivin <irzaarivin2005@gmail.com> 1700928599 +0700	commit: Add items page
+4e392061fee6f0ef61e5c2aec005429c4a32fab3 81cdfeccb991bd420c813a80a34b112273ab79d3 Irza Arivin <irzaarivin2005@gmail.com> 1701010328 +0700	commit: Optimized Items Page
+81cdfeccb991bd420c813a80a34b112273ab79d3 5085455b0ae67d0f42391a8e977577dbcfe2b54b Irza Arivin <irzaarivin2005@gmail.com> 1701694660 +0700	pull: Fast-forward
+5085455b0ae67d0f42391a8e977577dbcfe2b54b 23a4951cdb5edb630ab21d74ec0d298a5f89b5af Irza Arivin <irzaarivin2005@gmail.com> 1701783467 +0700	commit: Local Commit
+23a4951cdb5edb630ab21d74ec0d298a5f89b5af 327e8e63ed359e023951fb6d934a0d1813c22f49 Irza Arivin <irzaarivin2005@gmail.com> 1701783785 +0700	pull --rebase (finish): refs/heads/main onto 27ae7674d1447046534eacece3d04033c306274d
+327e8e63ed359e023951fb6d934a0d1813c22f49 8b2dcb8e4c30606ba181b995c29ca61fea0fd6dd Irza Arivin <irzaarivin2005@gmail.com> 1701882058 +0700	commit: Add Lock Screen
+8b2dcb8e4c30606ba181b995c29ca61fea0fd6dd 763154e0f996b86ee5eec1d660b980c19c700fa0 Irza Arivin <irzaarivin2005@gmail.com> 1702123558 +0700	commit: Ubah File Master
+763154e0f996b86ee5eec1d660b980c19c700fa0 078057a7a905fdd827e87206371fe782bc517edd Irza Arivin <irzaarivin2005@gmail.com> 1702129331 +0700	pull: Merge made by the 'ort' strategy.
+078057a7a905fdd827e87206371fe782bc517edd 4fc59d8d40b5128f711d6abab359022d3d656e2e Irza Arivin <irzaarivin2005@gmail.com> 1702226514 +0700	commit: Adding BackEnd for Web Socket
+4fc59d8d40b5128f711d6abab359022d3d656e2e a8063baf453811c3bbc3ff4afce5abdbf834785c Irza Arivin <irzaarivin2005@gmail.com> 1702290505 +0700	commit: API Fetch Items
+a8063baf453811c3bbc3ff4afce5abdbf834785c 677e46e40d98cdd73fe3fccdd2f2421ca8f03bca Irza Arivin <irzaarivin2005@gmail.com> 1702340769 +0700	commit: Add API Transaction
