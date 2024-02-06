@@ -12,16 +12,13 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    
+
     public function login() {
         return view('auth.login');
     }
 
     public function register() {
-        $class = Kelas::all();
-        return view('auth.register', [
-            'classes' => $class,
-        ]);
+        return view('auth.register');
     }
 
     public function handleLogin(Request $request) {
@@ -32,33 +29,33 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
- 
+
             return redirect()->intended('dashboard');
         }
- 
+
         return redirect()->back()->with('error', 'Kombinasi Email dan Password salah!');
     }
 
-    public function handleApiLogin(Request $request) {
-        $request->validate([
-            'email' => ['required', 'email'],
-            'password' => 'required',
-        ]);
+    // public function handleApiLogin(Request $request) {
+    //     $request->validate([
+    //         'email' => ['required', 'email'],
+    //         'password' => 'required',
+    //     ]);
 
-        $credentials = $request->only('email', 'password');
+    //     $credentials = $request->only('email', 'password');
 
-        if (Auth::attempt($credentials)) {
-            $user = Auth::user();
-            $token = $user->createToken('auth-token')->accessToken;
+    //     if (Auth::attempt($credentials)) {
+    //         $user = Auth::user();
+    //         $token = $user->createToken('auth-token')->accessToken;
 
-            return response()->json([
-                'user' => $user,
-                'access_token' => $token,
-            ]);
-        }
+    //         return response()->json([
+    //             'user' => $user,
+    //             'access_token' => $token,
+    //         ]);
+    //     }
 
-        return response()->json(['error' => 'Invalid credentials'], 401);
-    }
+    //     return response()->json(['error' => 'Invalid credentials'], 401);
+    // }
 
     public function handleRegister(Request $request) {
         $validator = Validator::make($request->all(), [

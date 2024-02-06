@@ -4,7 +4,7 @@
 
 <!-- component -->
 <!-- This is an example component -->
-<main class="p-4 md:ml-32 mx-auto h-full pt-12 w-full">
+<main class="p-4 md:ml-64 mx-auto h-full pt-12 max-w-screen mt-4">
     <div class="rounded-lg h-auto mb-4">
         <div class="container mx-auto shadow-lg rounded-lg">
             <!-- end header -->
@@ -84,7 +84,7 @@
                 </div>
                 <!-- end chat list -->
                 <!-- message -->
-                <div class="w-full px-5 flex flex-col justify-between">
+                <div class="w-full px-5 flex flex-col justify-between" style="min-height: 88vh;">
                     <div class="flex flex-col mt-5">
                         <div class="flex justify-end mb-4">
                             <div
