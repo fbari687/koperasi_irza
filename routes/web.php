@@ -21,6 +21,9 @@ Route::middleware('auth')->group(function(){
 
     Route::get('/reports', [PageController::class, 'report']);
 
+    Route::get('/profile', [PageController::class, 'profile']);
+    Route::put('/profile', [PageController::class, 'editProfile'])->name("editProfile");
+
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 

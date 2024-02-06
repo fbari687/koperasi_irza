@@ -119,7 +119,7 @@
                         <span class="sr-only">Toggle sidebar</span>
                     </button>
                     <a href="https://flowbite.com" class="flex items-center justify-between mr-4">
-                        <img src="img/65.png" class="mr-3 h-8" alt="SMK Negeri 65 Logo" />
+                        <img src="{{ asset('img/65.png') }}" class="mr-3 h-8" alt="SMK Negeri 65 Logo" />
                         <span
                             class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Koperasi</span>
                     </a>
@@ -477,7 +477,7 @@
                         </div>
                         <ul class="py-1 text-gray-700 dark:text-gray-300" aria-labelledby="dropdown">
                             <li>
-                                <a href="#"
+                                <a href="{{ url('/profile') }}"
                                     class="block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white">My
                                     profile</a>
                             </li>
@@ -578,7 +578,7 @@
         <!-- Sidebar -->
 
         <aside
-            class="fixed top-0 left-0 z-40 w-64 h-screen pt-14 transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
+            class="fixed top-0 left-0 z-100 w-64 h-screen pt-14 transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
             aria-label="Sidenav" id="drawer-navigation">
             <div class="overflow-y-auto py-5 px-3 h-full bg-white dark:bg-gray-800">
                 <form action="#" method="GET" class="md:hidden mb-2">
