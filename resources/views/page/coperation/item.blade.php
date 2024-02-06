@@ -8,12 +8,12 @@
         .paginationjs{
             padding: 10px;
         }
-        
+
     </style>
 
     <link rel="stylesheet" href="/css/pagination.css">
 
-    @if(session('success'))
+    {{-- @if(session('success'))
 
         <div id="toast-success" class="border-t-4 border-green-500 left-1/2 transform -translate-x-1/2 fixed top-5 text-center z-[999] mx-auto mb-5 flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow-xl dark:text-gray-400 dark:bg-gray-800" role="alert">
             <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
@@ -49,7 +49,7 @@
             </button>
         </div>
 
-    @endif
+    @endif --}}
 
     <div class="h-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
         <div class="rounded-lg dark:border-gray-600 h-max">
@@ -59,8 +59,10 @@
                 </a>
                 <div class="px-5 pb-5">
                     <a href="#">
-                        <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{{ ucfirst($random->nama_barang) }}</h5>
-                        <h5 class="text-md tracking-tight text-gray-900 dark:text-white">{{ $random->deskripsi }}</h5>
+                        {{-- <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{{ ucfirst($random->nama_barang) }}</h5> --}}
+                        <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">Ini Nama Barang</h5>
+                        {{-- <h5 class="text-md tracking-tight text-gray-900 dark:text-white">{{ $random->deskripsi }}</h5> --}}
+                        <h5 class="text-md tracking-tight text-gray-900 dark:text-white">Ini Deskripsi Barang</h5>
                     </a>
                     <div class="flex items-center mt-2.5 mb-5">
                         <div class="flex items-center space-x-1 rtl:space-x-reverse">
@@ -83,12 +85,13 @@
                         <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3">4.0</span>
                     </div>
                     <div class="flex items-center justify-between">
-                        <span class="text-3xl font-bold text-gray-900 dark:text-white">{{ "Rp. " . number_format($random->harga, 0, ',', '.') }}</span>
+                        {{-- <span class="text-3xl font-bold text-gray-900 dark:text-white">{{ "Rp. " . number_format($random->harga, 0, ',', '.') }}</span> --}}
+                        <span class="text-3xl font-bold text-gray-900 dark:text-white">Rp 18.000</span>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="rounded-lg border-gray-300 dark:border-gray-600 h-max md:h-64">
+        {{-- <div class="rounded-lg border-gray-300 dark:border-gray-600 h-max md:h-64">
             <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" style="background-image: url('/img/bg-card.jpg'); background-repeat: no-repeat">
                 <a href="#" class="flex justify-center">
                     <img class="p-8 w-auto rounded-t-lg h-[250px]" src="img/products/cilor.png" alt="product image" />
@@ -195,7 +198,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 
     <div class="rounded-lg h-auto mb-4">
@@ -245,7 +248,7 @@
                                     </div>
                                     <div class="sm:col-span-2">
                                         <label for="deskripsi" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Deskripsi</label>
-                                        <textarea id="deskripsi" name="deskripsi" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Tuliskan deskripsi barangnya disini"></textarea>                    
+                                        <textarea id="deskripsi" name="deskripsi" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Tuliskan deskripsi barangnya disini"></textarea>
                                     </div>
                                 </div>
                                 <button type="submit" class="mr-4 block text-white bg-green-700 hover:bg-primary-800 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:hover:bg-green-700">
@@ -257,7 +260,7 @@
                 </div>
 
                 {{-- MODAL EDIT BARANG --}}
-                <div id="editItem" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
+                {{-- <div id="editItem" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
                     <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
                         <!-- Modal content -->
                         <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
@@ -298,7 +301,7 @@
                                     </div>
                                     <div class="sm:col-span-2">
                                         <label for="edit_deskripsi" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Deskripsi</label>
-                                        <textarea id="edit_deskripsi" name="deskripsi" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Tuliskan deskripsi barangnya disini"></textarea>                    
+                                        <textarea id="edit_deskripsi" name="deskripsi" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Tuliskan deskripsi barangnya disini"></textarea>
                                     </div>
                                 </div>
                                 <button type="submit" class="mr-4 block text-white bg-blue-700 hover:bg-primary-800 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:hover:bg-green-700">
@@ -307,7 +310,7 @@
                             </form>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
                 <div class="items-center flex">
                     <button id="defaultModalButton" data-modal-target="defaultModal" data-modal-toggle="defaultModal" class="mr-4 block text-white bg-green-700 hover:bg-primary-800 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:hover:bg-green-700" type="button">
@@ -339,7 +342,7 @@
                                 <li>
                                     <a id="{{ $filter }}" onclick="filterItem('{{ $filter }}')" class="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"><span class="font-bold">•</span> {{ ucfirst($filter) }}</a>
                                 </li>
-                                
+
                             @endforeach
 
                         </ul>
@@ -376,13 +379,13 @@
                             Status
                         </th>
                         <th scope="col" class="px-6 py-3 text-center">
-                            
+
                         </th>
                     </tr>
                 </thead>
                 <tbody id="items-value">
 
-                    @forelse($items as $item)
+                    {{-- @forelse($items as $item)
 
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                             <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
@@ -390,7 +393,7 @@
                                 <div class="ps-3">
                                     <div class="text-base font-semibold">{{ ucfirst($item->nama_barang) }}</div>
                                     <div class="font-normal text-gray-500">{{ $item->deskripsi }}</div>
-                                </div>  
+                                </div>
                             </th>
                             <td class="px-6 py-4">
                                 {{ "Rp. " . number_format($item->harga, 0, ',', '.') }}
@@ -405,9 +408,9 @@
                                     @elseif($item->stok < 6 && $item->stok > 0)
 
                                         <div class="h-2.5 w-2.5 rounded-full bg-red-300 me-2"></div> Sisa {{ $item->stok }}
-                                    
+
                                     @else
-                                    
+
                                         <div class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> Tersedia {{ $item->stok }}
 
                                     @endif
@@ -425,8 +428,8 @@
                                 <h1>Tidak ada data</h1>
                             </th>
                         </tr>
-                        
-                    @endforelse
+
+                    @endforelse --}}
 
                     {{-- <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                         <th class="px-6 py-4" colspan="4">
@@ -449,7 +452,7 @@
                 const viewValFilter = document.getElementById('viewValFilter');
                 const remFilter = document.getElementById('rem-filter');
                 let myPagination = null;
-                
+
                 loadLogo.style.display = 'none';
                 loadFilter.style.display = 'none';
                 remFilter.style.display = 'none';
@@ -474,7 +477,7 @@
                             },
                         });
 
-                        
+
                         return response.data;
                     } catch (error) {
                         console.error("Gagal memuat permintaan", error);
@@ -557,20 +560,6 @@
                     }
                 });
 
-                document.addEventListener('DOMContentLoaded', function () {
-                    // Initialize pagination
-                    myPagination = $('#myTable').pagination({
-                        dataSource: @json($items), // Assuming $items is the data for your table
-                        pageSize: 10, // Set the number of items per page
-                        showPageNumbers: true,
-                        showNavigator: true,
-                        callback: function (data, pagination) {
-                            // Update your table with the data for the current page
-                            updateTable(data);
-
-                        }
-                    });
-                });
 
                 let numberFormatter = new Intl.NumberFormat('id-ID', {
                     style: 'currency',

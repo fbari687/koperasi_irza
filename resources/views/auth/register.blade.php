@@ -103,9 +103,10 @@
                             <div class="relative">
                                 <select name="class" class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md appearance-none dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40">
                                     <option value="" disabled selected>...</option>
-                                    @foreach($classes as $class)
-                                        <option value="{{ $class->name }}">{{ $class->name }}</option>
-                                    @endForeach
+                                    {{-- NGAMBIL STRING NAME KELAS DARI API --}}
+                                    <option value="XII-RPL">XII-RPL</option>
+                                    <option value="XI-RPL">XI-RPL</option>
+                                    <option value="X-RPL">X-RPL</option>
                                 </select>
                             </div>
                         </div>

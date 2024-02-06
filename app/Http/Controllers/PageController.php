@@ -18,8 +18,8 @@ class PageController extends Controller
             'verify' => base_path('cacert.pem'),
         ]);
     }
-    
-    public function dashboard() { 
+
+    public function dashboard() {
         try {
             $response = $this->client->get('https://api.quotable.io/random?minLength=150');
             $quote = json_decode($response->getBody()->getContents(), true);
@@ -56,16 +56,22 @@ class PageController extends Controller
     }
 
     public function item() {
-        $items = Item::orderBy('created_at', 'desc')->get();
+        // $items = Item::orderBy('created_at', 'desc')->get();
         $filters = ['terbaru', 'terlama', 'termahal', 'termurah', 'tersedia', 'habis'];
-        $random = Item::find(1);
+        // $random = Item::find(1);
+
+        // return view('page.coperation.item', [
+        //     'title' => 'Koperasi - Barang',
+        //     'bgMenu' => 'item',
+        //     'items' => $items,
+        //     'filters' => $filters,
+        //     'random' => $random
+        // ]);
 
         return view('page.coperation.item', [
             'title' => 'Koperasi - Barang',
             'bgMenu' => 'item',
-            'items' => $items,
             'filters' => $filters,
-            'random' => $random
         ]);
     }
 
