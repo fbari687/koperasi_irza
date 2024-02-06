@@ -36,6 +36,15 @@ class PageController extends Controller
                 'quote' => collect(['content' => 'Belum ada quotes untuk anda hari ini']),
             ]);
         }
+
+        // $response = $this->client->get('https://api.quotable.io/random?minLength=150');
+        //     $quote = json_decode($response->getBody()->getContents(), true);
+        //     // dd($quote['content']);
+        //     return view('page.dashboard', [
+        //         'title' => 'Hello ' . ucfirst(auth()->user()->name) . ' ^_^',
+        //         'bgMenu' => 'dashboard',
+        //         'quote' => collect($quote),
+        //     ]);
     }
 
     public function messages() {
