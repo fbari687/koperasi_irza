@@ -10,9 +10,12 @@ use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+
+
 class PageController extends Controller
 {
     protected $client;
@@ -76,20 +79,27 @@ class PageController extends Controller
     {
         // $items = Item::orderBy('created_at', 'desc')->get();
         $filters = ['terbaru', 'terlama', 'termahal', 'termurah', 'tersedia', 'habis'];
-        // $random = Item::find(1);
 
-        // return view('page.coperation.item', [
-        //     'title' => 'Koperasi - Barang',
-        //     'bgMenu' => 'item',
-        //     'items' => $items,
-        //     'filters' => $filters,
-        //     'random' => $random
-        // ]);
+        $response = $this->client->get('https://api.publicapis.org/entries');
+        $json = json_decode($response->getBody()->getContents(), true)['entries'];
+        $collection = collect($json);
+
+        // Menghitung jumlah halaman
+        $totalItems = $collection->count();
+        $itemsPerPage = 3;
+        $totalPages = ceil($totalItems / $itemsPerPage);
+
+        // Mendapatkan nomor halaman dari parameter query string jika tersedia, jika tidak, menggunakan halaman pertama
+        $currentPage = request()->has('page') ? request()->query('page') : 1;
+
+        // Mengambil data untuk halaman yang ditentukan
+        $data = $collection->forPage($currentPage, $itemsPerPage);
 
         return view('page.coperation.item', [
             'title' => 'Koperasi - Barang',
             'bgMenu' => 'item',
             'filters' => $filters,
+            'data' => collect($data),
         ]);
     }
 
@@ -158,7 +168,7 @@ class PageController extends Controller
                 'name' => ['required', 'string'],
                 'nis' => ['nullable', 'numeric'],
                 'telephone' => ['nullable', 'numeric'],
-                'email' => ['required', 'email', 'unique:users,email,'.Auth::user()->id],
+                'email' => ['required', 'email', 'unique:users,email,' . Auth::user()->id],
                 'password' => ['required', 'min:6'],
                 'class' => ['required'],
             ]);
@@ -167,7 +177,7 @@ class PageController extends Controller
                 'name' => ['required', 'string'],
                 'nis' => ['nullable', 'numeric'],
                 'telephone' => ['nullable', 'numeric'],
-                'email' => ['required', 'email', 'unique:users,email,'.Auth::user()->id],
+                'email' => ['required', 'email', 'unique:users,email,' . Auth::user()->id],
                 'class' => ['required'],
             ]);
         }

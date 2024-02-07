@@ -681,33 +681,34 @@
                         </th>
                     </tr> --}}
 
+                        @foreach ($data as $item)
                         <tr
-                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                            <th scope="row"
-                                class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
-                                <img class="w-10 h-10 rounded-full" src="img/65.png" alt="Jese image">
-                                <div class="ps-3">
-                                    <div class="text-base font-semibold">Air Mineral</div>
-                                    <div class="font-normal text-gray-500">Lorem ipsum dolor, sit amet consectetur
-                                        adipisicing elit. Ipsa, numquam.</div>
-                                </div>
-                            </th>
-                            <td class="px-6 py-4">
-                                {{ 'Rp. ' . number_format(25000, 0, ',', '.') }}
-                            </td>
-                            <td class="px-6 py-4">
-                                <div class="flex items-center">
+                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <th scope="row"
+                            class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                            <img class="w-10 h-10 rounded-full" src="img/65.png" alt="Jese image">
+                            <div class="ps-3">
+                                <div class="text-base font-semibold">{{ $loop->iteration }}. {{ $item['API'] }}</div>
+                                <div class="font-normal text-gray-500">{{ $item['Description'] }}</div>
+                            </div>
+                        </th>
+                        <td class="px-6 py-4">
+                            {{ $item['Category'] }}
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="flex items-center">
 
-                                    <div class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> Tersedia 30
+                                <div class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> {{ $item['Link'] }}
 
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 text-right">
-                                <a href="#" class="font-medium text-blue-600 dark:text-blue-500"><button
-                                        class="p-3 bg-blue-700 text-white rounded-lg active:scale-95">Unduh
-                                        Laporan</button></a>
-                            </td>
-                        </tr>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 text-right">
+                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500"><button
+                                    class="p-3 bg-blue-700 text-white rounded-lg active:scale-95">Unduh
+                                    Laporan</button></a>
+                        </td>
+                    </tr>
+                        @endforeach
                     </tbody>
                 </table>
 
