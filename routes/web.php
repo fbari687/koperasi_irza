@@ -16,10 +16,37 @@ Route::middleware('auth')->group(function(){
     Route::get('/officer', [PageController::class, 'officer']);
 
     Route::get('/items', [PageController::class, 'item']);
+
+
+
+
+
+
+
+
+    Route::post('/test-api', [PageController::class, 'testAddApi'])->name('testAddApi');
+    Route::put('/test-api/{id}', [PageController::class, 'testPutApi'])->name('testPutApi');
+    Route::delete('/test-api/{id}', [PageController::class, 'testDeleteApi'])->name('testDeleteApi');
+    Route::get('/test-api/{id}', [PageController::class, 'testViewApi'])->name('testViewApi');
+    Route::post('/test-api/delete', [PageController::class, 'testDelWhichApi'])->name('testDelWhichApi');
+
+
+
+
+
+
+
+
+
+
     Route::post('/items', [ProccessController::class, 'handleAddItem'])->name('update.item');
     Route::post('/item/update', [ProccessController::class, 'handleUpdateItem'])->name('update.item');
 
     Route::get('/reports', [PageController::class, 'report']);
+
+    Route::get('/profile', [PageController::class, 'profile']);
+    Route::put('/profile', [PageController::class, 'editProfile'])->name("editProfile");
+    Route::put('/change-photo-profile', [PageController::class, 'changePhotoProfile'])->name("changePhotoProfile");
 
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });
