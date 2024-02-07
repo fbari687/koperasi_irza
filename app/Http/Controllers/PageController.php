@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use App\Models\User;
 use App\Events\MyEvent;
+use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Request;
@@ -26,6 +27,96 @@ class PageController extends Controller
             'verify' => base_path('cacert.pem'),
         ]);
     }
+
+
+    public function testAddApi(Request $req)
+    {
+        // dd($req->all());
+        try {
+            $response = $this->client->post('http://localhost:8001/api/students', [
+                'form_params' => $req->all(),
+            ]);
+            $status = $response->getStatusCode();
+            $data = $response->getBody()->getContents();
+
+            dd($data);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function testPutApi(Request $req, $id)
+    {
+        try {
+            $response = $this->client->put('http://localhost:8001/api/students/'.$id, [
+                'form_params' => $req->all(),
+            ]);
+
+            $status = $response->getStatusCode();
+            $data = json_decode($response->getBody()->getContents(), true)['message'];
+
+            dd($data);
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+    }
+
+    public function testDeleteApi(Request $req, $id)
+    {
+        try {
+            $response = $this->client->delete('http://localhost:8001/api/students/'.$id);
+
+            $status = $response->getStatusCode();
+
+            $data = json_decode($response->getBody()->getContents(), true)['message'];
+
+            dd($data);
+
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+    }
+
+    public function testViewApi(Request $req, $id)
+    {
+        try {
+            $response = $this->client->get('http://localhost:8001/api/students/'.$id);
+
+        $status = $response->getStatusCode();
+
+        $data = json_decode($response->getBody()->getContents(), true);
+
+        dd($data);
+
+        // $data = json_decode($response->getBody()->getContents(), true)['data'];
+
+        // dd($data['name']);
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+    }
+
+    public function testDelWhichApi(Request $req)
+    {
+        try {
+            $response = $this->client->post('http://localhost:8001/api/students/delete', [
+                'form_params' => $req->all(),
+            ]);
+
+            $status = $response->getStatusCode();
+            $data = json_decode($response->getBody()->getContents(), true);
+
+            dd($data);
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+    }
+
+
+
+
+
+
 
     public function dashboard()
     {

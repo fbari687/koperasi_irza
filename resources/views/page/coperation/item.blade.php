@@ -312,27 +312,75 @@
                                     </button>
                                 </div>
                                 <!-- Modal body -->
-                                <form action="" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('testDelWhichApi') }}" method="POST"
+                                    enctype="multipart/form-data">
                                     @csrf
-                                    <div class="grid gap-4 mb-4 sm:grid-cols-2">
-                                        <div>
+                                    <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">Identification</h3>
+                                    <ul
+                                        class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                        <li
+                                            class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                            <div class="flex items-center ps-3">
+                                                <input id="vue-checkbox-list" name="students[]" type="checkbox" value="2"
+                                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                <label for="vue-checkbox-list" name="students[]"
+                                                    class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Vue
+                                                    JS</label>
+                                            </div>
+                                        </li>
+                                        <li
+                                            class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                            <div class="flex items-center ps-3">
+                                                <input id="react-checkbox-list" name="students[]" type="checkbox" value="3"
+                                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                <label for="react-checkbox-list" name="students[]"
+                                                    class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">React</label>
+                                            </div>
+                                        </li>
+                                        <li
+                                            class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                            <div class="flex items-center ps-3">
+                                                <input id="angular-checkbox-list" name="students[]" type="checkbox" value="4"
+                                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                <label for="angular-checkbox-list" name="students[]"
+                                                    class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Angular</label>
+                                            </div>
+                                        </li>
+                                        <li class="w-full dark:border-gray-600">
+                                            <div class="flex items-center ps-3">
+                                                <input id="laravel-checkbox-list" name="students[]" type="checkbox" value="5"
+                                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                <label for="laravel-checkbox-list" name="students[]"
+                                                    class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Laravel</label>
+                                            </div>
+                                        </li>
+                                    </ul>
+
+                                    <button type="submit"
+                                        class="mr-4 block text-white bg-green-700 hover:bg-primary-800 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:hover:bg-green-700">
+                                        Tambahkan
+                                    </button>
+                                    {{-- <div class="grid gap-4 mb-4 sm:grid-cols-2"> --}}
+                                    {{-- <div>
                                             <label for="selItems"
                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pilih
                                                 Barang</label>
                                             <select name="id" id="selItems"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                                <option selected disabled>Pilih Barang</option>
-                                                {{-- @foreach ($items as $item) --}}
-                                                {{-- <option value="{{ $item->id }}">{{ ucfirst($item->nama_barang) }}</option> --}}
-                                                {{-- @endforeach --}}
-                                                <option value="1">Air Mineral</option>
+                                                <option selected disabled>Pilih Barang</option> --}}
+
+                                    {{-- @foreach ($items as $item) --}}
+                                    {{-- <option value="{{ $item->id }}">{{ ucfirst($item->nama_barang) }}</option> --}}
+                                    {{-- @endforeach --}}
+                                    {{-- <option value="1">Air Mineral</option>
+
                                             </select>
                                         </div>
                                         <div>
                                             <label for="name"
                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
                                                 Barang</label>
-                                            <input type="text" name="nama_barang" id="name"
+                                            <input type="text" name="name" id="name"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 placeholder="Ganti nama barang" required="">
                                         </div>
@@ -342,26 +390,33 @@
                                             <div class="mb-4">
                                                 <label for="edit_harga"
                                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Harga</label>
-                                                <input type="number" name="harga" id="edit_harga"
+                                                <input type="text" name="email" id="edit_harga"
                                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                     placeholder="Exp : 5000" required="">
                                             </div>
                                             <div class="mb-4">
                                                 <label for="edit_stok"
                                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Stok</label>
-                                                <input type="number" name="stok" id="edit_stok"
+                                                <input type="text" name="username" id="edit_stok"
                                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                     placeholder="Exp : 17" required="">
                                             </div>
+                                            <div class="mb-4">
+                                                <label for="edit_stok"
+                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Stok</label>
+                                                <input type="password" name="password" id="edit_stok"
+                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                    placeholder="Exp : 17" required="">
+                                            </div> --}}
 
-                                            <div class="">
+                                    {{-- <div class="">
                                                 <label for="edit_deskripsi"
                                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Deskripsi</label>
                                                 <textarea id="edit_deskripsi" name="deskripsi" rows="6"
                                                     class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                     placeholder="Tuliskan deskripsi barangnya disini"></textarea>
-                                            </div>
-                                        </div>
+                                            </div> --}}
+                                    {{-- </div>
 
                                         <div>
                                             <label for="edit_stok"
@@ -370,8 +425,7 @@
                                                 class=""
                                                 style="box-shadow: rgba(50, 50, 93, 0.077) 0px 6px 12px -2px, rgba(0, 0, 0, 0.061) 0px 3px 7px -3px; border-radius: 10px; display: ; border: 1px solid rgba(0, 0, 0, 0.161); max-width: 250px; min-width: 250px; width: 100%; aspect-ratio: 1/1">
                                             <input type="file" accept="image/*" id="gambarEdit" name="gambar"
-                                                class="mt-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                required="">
+                                                class="mt-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                             <script>
                                                 document.addEventListener('DOMContentLoaded', function() {
                                                     const imageInputEdit = document.getElementById('gambarEdit');
@@ -392,16 +446,11 @@
                                                 });
                                             </script>
                                         </div>
-
-
-
-
-
-                                    </div>
-                                    <button type="submit"
+                                    </div> --}}
+                                    {{-- <button type="submit"
                                         class="mr-4 block text-white bg-green-700 hover:bg-primary-800 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:hover:bg-green-700">
                                         Tambahkan
-                                    </button>
+                                    </button> --}}
                                 </form>
                             </div>
                         </div>
@@ -682,32 +731,33 @@
                     </tr> --}}
 
                         @foreach ($data as $item)
-                        <tr
-                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <th scope="row"
-                            class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
-                            <img class="w-10 h-10 rounded-full" src="img/65.png" alt="Jese image">
-                            <div class="ps-3">
-                                <div class="text-base font-semibold">{{ $loop->iteration }}. {{ $item['API'] }}</div>
-                                <div class="font-normal text-gray-500">{{ $item['Description'] }}</div>
-                            </div>
-                        </th>
-                        <td class="px-6 py-4">
-                            {{ $item['Category'] }}
-                        </td>
-                        <td class="px-6 py-4">
-                            <div class="flex items-center">
+                            <tr
+                                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                <th scope="row"
+                                    class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                                    <img class="w-10 h-10 rounded-full" src="img/65.png" alt="Jese image">
+                                    <div class="ps-3">
+                                        <div class="text-base font-semibold">{{ $loop->iteration }}. {{ $item['API'] }}
+                                        </div>
+                                        <div class="font-normal text-gray-500">{{ $item['Description'] }}</div>
+                                    </div>
+                                </th>
+                                <td class="px-6 py-4">
+                                    {{ $item['Category'] }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center">
 
-                                <div class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> {{ $item['Link'] }}
+                                        <div class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> {{ $item['Link'] }}
 
-                            </div>
-                        </td>
-                        <td class="px-6 py-4 text-right">
-                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500"><button
-                                    class="p-3 bg-blue-700 text-white rounded-lg active:scale-95">Unduh
-                                    Laporan</button></a>
-                        </td>
-                    </tr>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500"><button
+                                            class="p-3 bg-blue-700 text-white rounded-lg active:scale-95">Unduh
+                                            Laporan</button></a>
+                                </td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
