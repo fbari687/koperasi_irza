@@ -23,6 +23,7 @@ Route::middleware('auth')->group(function(){
 
     Route::get('/profile', [PageController::class, 'profile']);
     Route::put('/profile', [PageController::class, 'editProfile'])->name("editProfile");
+    Route::put('/change-photo-profile', [PageController::class, 'changePhotoProfile'])->name("changePhotoProfile");
 
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });

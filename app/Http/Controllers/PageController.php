@@ -10,8 +10,9 @@ use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Str;
 class PageController extends Controller
 {
     protected $client;
@@ -113,6 +114,41 @@ class PageController extends Controller
             'title' => 'Hello ' . ucfirst(auth()->user()->name) . ' ^_^',
             'bgMenu' => 'profile',
         ]);
+    }
+
+    public function changePhotoProfile(Request $req)
+    {
+        $validator = Validator::make($req->all(), [
+            'photo' => 'required|max:5000'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $data = [
+            'photo' => $req->photo,
+        ];
+
+        $oldImage = Auth::user()->photo;
+
+        if ($req->hasFile('photo')) {
+
+            if ($oldImage) {
+                Storage::delete($oldImage);
+            }
+
+            $file = $req->file('photo');
+            $extension = $file->getClientOriginalExtension();
+            $filename = $file->getClientOriginalName() . '-' . Str::random(4) . '-' . $extension;
+            $path = $file->storeAs('photo-user', $filename);
+            $data['photo'] = $path;
+        }
+
+        $user = User::findOrFail(Auth::user()->id);
+        $user->update($data);
+
+        return redirect()->back()->with('success', 'SUCCESSFULLY CHANGE PROFILE PICTURE!');
     }
 
     public function editProfile(Request $req)
