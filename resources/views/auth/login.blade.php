@@ -62,7 +62,7 @@
                     @endIf
                     <div class="text-center">
                         <h2 class="mt-2 text-3xl font-bold text-gray-900">
-                            Halo Petugas!
+                            Halo Petugas!!
                         </h2>
                     </div>
                     <div class="flex items-center justify-center space-x-2">
@@ -104,6 +104,40 @@
             </div>
         </div>
     </div>
+
+    <table id="data-table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <!-- Tambahkan kolom-kolom lainnya sesuai kebutuhan -->
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data akan ditampilkan di sini -->
+        </tbody>
+    </table>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+document.addEventListener("DOMContentLoaded", function(event) {
+    Echo.channel('hello-channel')
+        .listen('HelloEvent', (e) => {
+            console.log("event from halloevent");
+            console.log(e);
+            appendDataToTable(e.data);
+        });
+
+    function appendDataToTable(data) {
+        var tableRow = '<tr>' +
+            '<td>' + data.content + '</td>' +
+            '<td>' + data.author + '</td>' +
+            '</tr>';
+        $('#data-table tbody').append(tableRow);
+    }
+});
+
+    </script>
 </body>
 
 </html>

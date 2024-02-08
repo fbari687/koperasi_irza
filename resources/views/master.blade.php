@@ -655,10 +655,10 @@
                                 <a href="officer"
                                     class="{{ $bgMenu == 'officer' ? 'text-white bg-blue-600' : 'hover:bg-gray-100 dark:hover:bg-gray-700' }} flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group dark:text-white">Petugas</a>
                             </li>
-                            <li>
+                            {{-- <li>
                                 <a href="schedules"
                                     class="{{ $bgMenu == 'schedule' ? 'text-white bg-blue-600' : 'hover:bg-gray-100 dark:hover:bg-gray-700' }} flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group dark:text-white">Jadwal</a>
-                            </li>
+                            </li> --}}
                             <li>
                                 <a href="classes"
                                     class="{{ $bgMenu == 'classes' ? 'text-white bg-blue-600' : 'hover:bg-gray-100 dark:hover:bg-gray-700' }} flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group dark:text-white">Kelas</a>

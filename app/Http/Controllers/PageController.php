@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\HelloEvent;
 use App\Models\Item;
 use App\Models\User;
 use App\Events\MyEvent;
@@ -106,11 +107,32 @@ class PageController extends Controller
             $status = $response->getStatusCode();
             $data = json_decode($response->getBody()->getContents(), true);
 
-            dd($data);
+            dd($data, $status);
         } catch (Exception $e) {
             dd($e->getMessage());
         }
     }
+
+
+    public function testEvent()
+    {
+        $response = $this->client->get('https://api.quotable.io/random?minLength=150');
+        $data = json_decode($response->getBody()->getContents(), true);
+        Broadcast(new HelloEvent($data));
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -166,6 +188,50 @@ class PageController extends Controller
         ]);
     }
 
+    public function classes()
+    {
+        // $users = User::all();
+        $classes = [
+            [
+                'name' => 'XII-RPL',
+                'total' => 10
+            ],
+            [
+                'name' => 'XI-PPLG',
+                'total' => 10
+            ],
+            [
+                'name' => 'X-PPLG',
+                'total' => 10
+            ],
+            [
+                'name' => 'XII-MM',
+                'total' => 10
+            ],
+            [
+                'name' => 'XI-MM',
+                'total' => 10
+            ],
+            [
+                'name' => 'X-MM',
+                'total' => 10
+            ],
+        ];
+
+        return view('page.student-affairs.classes', [
+            'title' => "Koperasi - Classes",
+            'bgMenu' => 'classes',
+            'classes' => $classes
+            // 'users' => $users
+        ]);
+    }
+
+
+
+
+
+
+
     public function item()
     {
         // $items = Item::orderBy('created_at', 'desc')->get();
@@ -193,6 +259,172 @@ class PageController extends Controller
             'data' => collect($data),
         ]);
     }
+
+    // function createSlug($string) {
+    //     $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $string), '-'));
+    //     return $slug;
+    // }
+
+    public function itemAdd(Request $req)
+    {
+        $validator = Validator::make($req->all(), [
+            'nama_barang' => 'required',
+            'deskripsi' => 'required',
+            'harga' => 'required',
+            'stok' => 'required',
+            // 'status' => 'required',
+            'gambar' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $data = [
+            'nama_barang' => $req->nama_barang,
+            'slug' => Str::slug($req->nama_barang),
+            'deskripsi' => $req->deskripsi,
+            'harga' => $req->harga,
+            'stok' => $req->stok,
+            'status' => 'tersedia',
+            'gambar' => null,
+        ];
+
+        if ($req->hasFile('gambar')) {
+            $file = $req->file('gambar');
+            $extension = $file->getClientOriginalExtension();
+            $fileName = $data['slug'] . '-' . $extension;
+            $path = $file->storeAs('products', $fileName);
+            $data['gambar'] = $path;
+        }
+
+        try {
+            $response = $this->client->post('url_api', [
+                'form_params' => $data
+            ]);
+
+            $status = $response->getStatusCode();
+
+            $data = json_decode($response->getBody()->getContents(), true);
+
+            return response()->json([
+                'status' => $status,
+                'data' => $data,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'error' => $e->getMessage()
+            ]);
+        }
+    }
+
+
+    public function itemEdit(Request $req, $id)
+    {
+
+        try {
+            $getUser = $this->client->get('api_url'.$id);
+            $user = json_decode($getUser->getBody()->getContents(), true)['data'];
+
+            $validator = Validator::make($req->all(), [
+                'nama_barang' => 'required',
+                'deskripsi' => 'required',
+                'harga' => 'required',
+                'stok' => 'required',
+                // 'status' => 'required',
+                'gambar' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+
+            $data = [
+                'nama_barang' => $req->nama_barang,
+                'slug' => Str::slug($req->nama_barang),
+                'deskripsi' => $req->deskripsi,
+                'harga' => $req->harga,
+                'stok' => $req->stok,
+                'status' => $user['status'],
+                'gambar' => $user['gambar'],
+            ];
+
+            if ($req->hasFile('gambar')) {
+                if ($data['gambar']) {
+                    Storage::delete($data['gambar']);
+                }
+
+                $file = $req->file('gambar');
+                $extension = $file->getClientOriginalExtension();
+                $fileName = $data['slug'] . '-' . $extension;
+                $path = $file->storeAs('products', $fileName);
+                $data['gambar'] = $path;
+            }
+
+            try {
+                $response = $this->client->put('api_url'.$id, [
+                    'form_params' => $data,
+                ]);
+
+                $data = json_decode($response->getBody()->getContents(), true)['data'];
+
+                return response()->json([
+                    'status' => $response->getStatusCode(),
+                    'data' => $data
+                ]);
+
+            } catch (Exception $e) {
+                return response()->json([
+                    'errors' => $e->getMessage(),
+                ]);
+            }
+
+
+        } catch (Exception $e) {
+            return response()->json([
+                'errors' => $e->getMessage(),
+            ]);
+        }
+
+
+    }
+
+    public function itemDelete($id)
+    {
+        try {
+            $response = $this->client->delete('api_url'.$id);
+
+            return response()->json([
+                'status' => $response->getStatusCode(),
+                'data' => json_decode($response->getBody()->getContents(), true)['data'],
+            ]);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'errors' => $e->getMessage()
+            ]);
+        }
+    }
+
+    public function itemView($id)
+    {
+        try {
+            $response = $this->client->get('api_url'.$id);
+
+            $data = json_decode($response->getBody()->getContents(), true)['data'];
+
+            return view('page.coperation.item.DETAIL?', [
+                'title' => $data['slug'],
+                'bgMenu' => 'items',
+                'item' => collect($data),
+            ]);
+
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors($e->getMessage())->with('errors', 'ERROR WHILE FETCHING DATA ITEM');
+        }
+    }
+
+
 
     public function report()
     {
