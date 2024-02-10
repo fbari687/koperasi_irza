@@ -4,6 +4,7 @@ use App\Events\HelloEvent;
 use App\Http\Controllers\AjaxController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\KasirController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProccessController;
 use App\Models\User;
@@ -36,8 +37,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/items', [PageController::class, 'item']);
     Route::get('/items/{id}', [PageController::class, 'itemView']);
-    Route::post('/items', [PageController::class, 'itemAdd']);
-    Route::put('/items/{id}', [PageController::class, 'itemEdit']);
+    Route::post('/items', [PageController::class, 'itemAdd'])->name('items.add');
+    Route::put('/items', [PageController::class, 'itemEdit'])->name('item.edit');
     Route::delete('/items/{id}', [PageController::class, 'itemDelete']);
 
 
@@ -55,6 +56,8 @@ Route::middleware('auth')->group(function () {
 
 
 
+    Route::get('/cashier', [KasirController::class, 'index']);
+    Route::post('/cashier', [KasirController::class, 'submit'])->name('cashier.submit');
 
 
 
@@ -62,8 +65,8 @@ Route::middleware('auth')->group(function () {
 
 
 
-    Route::post('/items', [ProccessController::class, 'handleAddItem'])->name('update.item');
-    Route::post('/item/update', [ProccessController::class, 'handleUpdateItem'])->name('update.item');
+    // Route::post('/items', [ProccessController::class, 'handleAddItem'])->name('update.item');
+    // Route::post('/item/update', [ProccessController::class, 'handleUpdateItem'])->name('update.item');
 
     Route::get('/reports', [PageController::class, 'report']);
 
@@ -87,5 +90,5 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [AuthController::class, 'handleLogin']);
     Route::post('/register', [AuthController::class, 'handleRegister']);
 
-    Route::get('/broadcast-event', [PageController::class, 'handleBroad']);
+    // Route::get('/broadcast-event', [PageController::class, 'handleBroad']);
 });

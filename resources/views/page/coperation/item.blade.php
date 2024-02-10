@@ -312,119 +312,57 @@
                                     </button>
                                 </div>
                                 <!-- Modal body -->
-                                <form action="{{ route('testDelWhichApi') }}" method="POST"
-                                    enctype="multipart/form-data">
+                                <form action="{{ route('items.add') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
-                                    <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">Identification</h3>
-                                    <ul
-                                        class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                                        <li
-                                            class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
-                                            <div class="flex items-center ps-3">
-                                                <input id="vue-checkbox-list" name="students[]" type="checkbox" value="2"
-                                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                                <label for="vue-checkbox-list" name="students[]"
-                                                    class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Vue
-                                                    JS</label>
-                                            </div>
-                                        </li>
-                                        <li
-                                            class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
-                                            <div class="flex items-center ps-3">
-                                                <input id="react-checkbox-list" name="students[]" type="checkbox" value="3"
-                                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                                <label for="react-checkbox-list" name="students[]"
-                                                    class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">React</label>
-                                            </div>
-                                        </li>
-                                        <li
-                                            class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
-                                            <div class="flex items-center ps-3">
-                                                <input id="angular-checkbox-list" name="students[]" type="checkbox" value="4"
-                                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                                <label for="angular-checkbox-list" name="students[]"
-                                                    class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Angular</label>
-                                            </div>
-                                        </li>
-                                        <li class="w-full dark:border-gray-600">
-                                            <div class="flex items-center ps-3">
-                                                <input id="laravel-checkbox-list" name="students[]" type="checkbox" value="5"
-                                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                                <label for="laravel-checkbox-list" name="students[]"
-                                                    class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Laravel</label>
-                                            </div>
-                                        </li>
-                                    </ul>
 
-                                    <button type="submit"
-                                        class="mr-4 block text-white bg-green-700 hover:bg-primary-800 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:hover:bg-green-700">
-                                        Tambahkan
-                                    </button>
-                                    {{-- <div class="grid gap-4 mb-4 sm:grid-cols-2"> --}}
-                                    {{-- <div>
-                                            <label for="selItems"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pilih
-                                                Barang</label>
-                                            <select name="id" id="selItems"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                                <option selected disabled>Pilih Barang</option> --}}
-
-                                    {{-- @foreach ($items as $item) --}}
-                                    {{-- <option value="{{ $item->id }}">{{ ucfirst($item->nama_barang) }}</option> --}}
-                                    {{-- @endforeach --}}
-                                    {{-- <option value="1">Air Mineral</option>
-
-                                            </select>
-                                        </div>
-                                        <div>
-                                            <label for="name"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
-                                                Barang</label>
-                                            <input type="text" name="name" id="name"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Ganti nama barang" required="">
-                                        </div>
+                                    @if ($errors->any())
+                                        @foreach ($errors->all() as $error)
+                                            {{ $error }}
+                                        @endforeach
+                                    @endif
+                                    <div class="grid gap-4 mb-4 sm:grid-cols-2">
 
                                         <div>
+                                            <div class="mb-4">
+                                                <label for="name"
+                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
+                                                    Barang</label>
+                                                <input type="text" name="name" id="name"
+                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                    placeholder="Pulpen" required="">
+                                            </div>
 
                                             <div class="mb-4">
-                                                <label for="edit_harga"
+                                                <label for="price"
                                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Harga</label>
-                                                <input type="text" name="email" id="edit_harga"
+                                                <input type="text" name="price" id="price"
                                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                    placeholder="Exp : 5000" required="">
+                                                    placeholder="Rp. 20,000" required="">
                                             </div>
-                                            <div class="mb-4">
-                                                <label for="edit_stok"
-                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Stok</label>
-                                                <input type="text" name="username" id="edit_stok"
-                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                    placeholder="Exp : 17" required="">
-                                            </div>
-                                            <div class="mb-4">
-                                                <label for="edit_stok"
-                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Stok</label>
-                                                <input type="password" name="password" id="edit_stok"
-                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                    placeholder="Exp : 17" required="">
-                                            </div> --}}
 
-                                    {{-- <div class="">
-                                                <label for="edit_deskripsi"
+                                            <div class="mb-4">
+                                                <label for="stock"
+                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Stok</label>
+                                                <input type="text" name="stock" id="stock"
+                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                    placeholder="20" required="">
+                                            </div>
+
+                                            <div class="">
+                                                <label for="description"
                                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Deskripsi</label>
-                                                <textarea id="edit_deskripsi" name="deskripsi" rows="6"
-                                                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                    placeholder="Tuliskan deskripsi barangnya disini"></textarea>
-                                            </div> --}}
-                                    {{-- </div>
+                                                <textarea id="description" name="description" rows="4"
+                                                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"></textarea>
+                                            </div>
+                                        </div>
 
                                         <div>
-                                            <label for="edit_stok"
+                                            <label for="image"
                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gambar</label>
-                                            <img id="imagePreviewEdit" src="{{ asset('img/no-data.jpg') }}" alt="Preview"
-                                                class=""
-                                                style="box-shadow: rgba(50, 50, 93, 0.077) 0px 6px 12px -2px, rgba(0, 0, 0, 0.061) 0px 3px 7px -3px; border-radius: 10px; display: ; border: 1px solid rgba(0, 0, 0, 0.161); max-width: 250px; min-width: 250px; width: 100%; aspect-ratio: 1/1">
-                                            <input type="file" accept="image/*" id="gambarEdit" name="gambar"
+                                            <img id="imagePreviewEdit" src="{{ asset('img/no-data.jpg') }}"
+                                                alt="Preview" class=""
+                                                style="box-shadow: rgba(50, 50, 93, 0.077) 0px 6px 12px -2px, rgba(0, 0, 0, 0.061) 0px 3px 7px -3px; border-radius: 10px; display: ; border: 1px solid rgba(0, 0, 0, 0.161); max-width: 300px; min-width: 300px; width: 100%; aspect-ratio: 1/1">
+                                            <input type="file" accept="image/*" id="gambarEdit" name="image"
                                                 class="mt-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                             <script>
                                                 document.addEventListener('DOMContentLoaded', function() {
@@ -446,11 +384,11 @@
                                                 });
                                             </script>
                                         </div>
-                                    </div> --}}
-                                    {{-- <button type="submit"
+                                    </div>
+                                    <button type="submit"
                                         class="mr-4 block text-white bg-green-700 hover:bg-primary-800 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:hover:bg-green-700">
                                         Tambahkan
-                                    </button> --}}
+                                    </button>
                                 </form>
                             </div>
                         </div>
@@ -481,8 +419,9 @@
                                     </button>
                                 </div>
                                 <!-- Modal body -->
-                                <form action="{{ route('update.item') }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('item.edit') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
+                                    @method('put')
                                     <div class="grid gap-4 mb-4 sm:grid-cols-2">
                                         <div>
                                             <label for="selItems"
@@ -491,19 +430,19 @@
                                             <select name="id" id="selItems"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                                 <option selected disabled>Pilih Barang</option>
-                                                {{-- @foreach ($items as $item) --}}
-                                                {{-- <option value="{{ $item->id }}">{{ ucfirst($item->nama_barang) }}</option> --}}
-                                                {{-- @endforeach --}}
-                                                <option value="1">Air Mineral</option>
+                                                @foreach ($data as $item)
+                                                    <option value="{{ $item['id'] }}">{{ ucfirst($item['name']) }}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div>
-                                            <label for="name"
+                                            <label for="edit_name"
                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
                                                 Barang</label>
-                                            <input type="text" name="nama_barang" id="name"
+                                            <input type="text" name="name" id="edit_name"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Ganti nama barang" required="">
+                                                placeholder="Ganti nama barang">
                                         </div>
 
                                         <div>
@@ -511,36 +450,35 @@
                                             <div class="mb-4">
                                                 <label for="edit_harga"
                                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Harga</label>
-                                                <input type="number" name="harga" id="edit_harga"
+                                                <input type="number" name="price" id="edit_harga"
                                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                    placeholder="Exp : 5000" required="">
+                                                    placeholder="Exp : 5000">
                                             </div>
                                             <div class="mb-4">
                                                 <label for="edit_stok"
                                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Stok</label>
-                                                <input type="number" name="stok" id="edit_stok"
+                                                <input type="number" name="stock" id="edit_stok"
                                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                    placeholder="Exp : 17" required="">
+                                                    placeholder="Exp : 17">
                                             </div>
 
                                             <div class="">
                                                 <label for="edit_deskripsi"
                                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Deskripsi</label>
-                                                <textarea id="edit_deskripsi" name="deskripsi" rows="6"
+                                                <textarea id="edit_deskripsi" name="description" rows="6"
                                                     class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                     placeholder="Tuliskan deskripsi barangnya disini"></textarea>
                                             </div>
                                         </div>
 
                                         <div>
-                                            <label for="edit_stok"
+                                            <label for="gambar"
                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gambar</label>
                                             <img id="imagePreview" src="{{ asset('img/no-data.jpg') }}" alt="Preview"
                                                 class=""
                                                 style="box-shadow: rgba(50, 50, 93, 0.077) 0px 6px 12px -2px, rgba(0, 0, 0, 0.061) 0px 3px 7px -3px; border-radius: 10px; display: ; border: 1px solid rgba(0, 0, 0, 0.161); max-width: 250px; min-width: 250px; width: 100%; aspect-ratio: 1/1">
-                                            <input type="file" accept="image/*" id="gambar" name="gambar"
-                                                class="mt-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                required="">
+                                            <input type="file" accept="image/*" id="gambar" name="image"
+                                                class="mt-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                             <script>
                                                 document.addEventListener('DOMContentLoaded', function() {
                                                     const imageInput = document.getElementById('gambar');
@@ -662,11 +600,16 @@
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400" id="myTable">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
+                            {{-- // name, slug, description, price, stock, status, image --}}
+
                             <th scope="col" class="px-6 py-3">
                                 Nama Barang
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Harga
+                                Deskripsi
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Stok
                             </th>
                             <th scope="col" class="px-6 py-3">
                                 Status
@@ -730,25 +673,32 @@
                         </th>
                     </tr> --}}
 
-                        @foreach ($data as $item)
+                        {{-- @foreach ($data as $item)
                             <tr
                                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+
                                 <th scope="row"
                                     class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
-                                    <img class="w-10 h-10 rounded-full" src="img/65.png" alt="Jese image">
+                                    <img class="w-10 h-10 rounded-full" src="{{ asset('storage/' . $item['image']) }}"
+                                        alt="Jese image">
                                     <div class="ps-3">
-                                        <div class="text-base font-semibold">{{ $loop->iteration }}. {{ $item['API'] }}
+                                        <div class="text-base font-semibold">{{ $loop->iteration }}. {{ $item['name'] }}
                                         </div>
-                                        <div class="font-normal text-gray-500">{{ $item['Description'] }}</div>
+                                        <div class="font-normal text-gray-500">Rp. {{ number_format($item['price']) }}
+                                        </div>
                                     </div>
                                 </th>
                                 <td class="px-6 py-4">
-                                    {{ $item['Category'] }}
+                                    {{ $item['description'] }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ $item['stock'] }}
                                 </td>
                                 <td class="px-6 py-4">
                                     <div class="flex items-center">
 
-                                        <div class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> {{ $item['Link'] }}
+                                        <div class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div>
+                                        {{ $item['status'] }}
 
                                     </div>
                                 </td>
@@ -758,226 +708,59 @@
                                             Laporan</button></a>
                                 </td>
                             </tr>
-                        @endforeach
+                        @endforeach --}}
                     </tbody>
                 </table>
 
-                <script src="/js/jquery.min.js"></script>
-                <script src="/js/pagination.min.js"></script>
-                <script>
-                    const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
-                    const searchBtn = document.getElementById('search-items');
-                    const tableData = document.getElementById('items-value');
-                    const searchLogo = document.getElementById('search-logo');
-                    const loadLogo = document.getElementById('load-logo');
-                    const loadFilter = document.getElementById('load-filter');
-                    const viewValFilter = document.getElementById('viewValFilter');
-                    const remFilter = document.getElementById('rem-filter');
-                    let myPagination = null;
+                <!-- Tambahkan tag <script> ini di dalam halaman Anda -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Fungsi untuk memperbarui tabel dengan data baru
+        function updateTable(data) {
+            $('#items-value').empty(); // Kosongkan isi tabel
+            $.each(data, function(index, item) {
+                var row = '<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">' +
+                    '<th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">' +
+                    '<img class="w-10 h-10 rounded-full" src="storage/' + item.image + '" alt="' + item.name + ' image">' +
+                    '<div class="ps-3">' +
+                    '<div class="text-base font-semibold">' + (index + 1) + '. ' + item.name + '</div>' +
+                    '<div class="font-normal text-gray-500">Rp. ' + item.price + '</div>' +
+                    '</div>' +
+                    '</th>' +
+                    '<td class="px-6 py-4">' + item.description + '</td>' +
+                    '<td class="px-6 py-4">' + item.stock + '</td>' +
+                    '<td class="px-6 py-4">' +
+                    '<div class="flex items-center">' +
+                    '<div class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div>' + item.status +
+                    '</div>' +
+                    '</td>' +
+                    '<td class="px-6 py-4 text-right">' +
+                    '<a href="#" class="font-medium text-blue-600 dark:text-blue-500"><button class="p-3 bg-blue-700 text-white rounded-lg active:scale-95">Unduh Laporan</button></a>' +
+                    '</td>' +
+                    '</tr>';
+                $('#items-value').append(row); // Tambahkan baris ke tabel
+            });
+        }
 
-                    loadLogo.style.display = 'none';
-                    loadFilter.style.display = 'none';
-                    remFilter.style.display = 'none';
+        // Fungsi untuk memperbarui data tabel secara periodik
+        function fetchData() {
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:4444/items', // Ganti dengan URL endpoint Anda
+                success: function(response) {
+                    updateTable(response.data); // Panggil fungsi untuk memperbarui tabel dengan data baru
+                },
+                error: function(xhr, status, error) {
+                    console.error(error); // Tangani kesalahan jika terjadi
+                }
+            });
+        }
 
-                    const ucFirst = (str) => {
-                        let firstChar = str.charAt(0);
-                        firstChar = firstChar.toUpperCase();
-                        let strWithoutFirstChar = str.slice(1);
-                        let newString = firstChar + strWithoutFirstChar;
-                        return newString;
-                    }
-
-                    const filterItems = async (filter) => {
-                        try {
-                            const response = await axios.post('{{ route('filter.item') }}', {
-                                filter: filter
-                            }, {
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'X-CSRF-TOKEN': csrfToken,
-                                    'Cache-Control': 'no-cache',
-                                },
-                            });
-
-
-                            return response.data;
-                        } catch (error) {
-                            console.error("Gagal memuat permintaan", error);
-                            throw error;
-                        }
-                    }
-
-                    const fetchItems = async (search) => {
-                        try {
-                            const response = await axios.post('{{ route('search.item') }}', {
-                                search: search
-                            }, {
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'X-CSRF-TOKEN': csrfToken
-                                }
-                            });
-
-                            return response.data;
-                        } catch (error) {
-                            console.error("Gagal memuat permintaan", error);
-                            throw error;
-                        }
-                    }
-
-                    const filterItem = async (filter) => {
-                        loadFilter.style.display = 'inline';
-
-                        try {
-                            const result = await filterItems(filter);
-                            if (myPagination) {
-                                myPagination.pagination('destroy');
-                            }
-
-                            myPagination = $('#myTable').pagination({
-                                dataSource: result,
-                                pageSize: 10,
-                                showPageNumbers: true,
-                                showNavigator: true,
-                                callback: function(data, pagination) {
-                                    updateTable(data);
-                                }
-                            });
-                        } catch (error) {
-                            console.error("Gagal menangani permintaan", error);
-                        }
-
-                        loadFilter.style.display = 'none';
-                        filter == 'nothing' ? viewValFilter.innerHTML = 'Filter' : viewValFilter.innerHTML = ucFirst(filter);
-                        searchBtn.value = '';
-
-                        filter != 'nothing' ? remFilter.style.display = 'block' : remFilter.style.display = 'none';;
-                    }
-
-                    searchBtn.addEventListener('change', async () => {
-                        searchLogo.style.display = 'none';
-                        loadLogo.style.display = 'inline';
-
-                        let value = searchBtn.value;
-                        try {
-                            const result = await fetchItems(value);
-                            if (myPagination) {
-                                myPagination.pagination('destroy');
-                            }
-
-                            myPagination = $('#myTable').pagination({
-                                dataSource: result,
-                                pageSize: 10,
-                                showPageNumbers: true,
-                                showNavigator: true,
-                                callback: function(data, pagination) {
-                                    updateTable(data);
-                                }
-                            });
-                            loadLogo.style.display = 'none';
-                            searchLogo.style.display = 'inline';
-                            viewValFilter.innerHTML = 'Filter';
-                        } catch (error) {
-                            console.error("Gagal menangani permintaan", error);
-                        }
-                    });
-
-
-                    let numberFormatter = new Intl.NumberFormat('id-ID', {
-                        style: 'currency',
-                        currency: 'IDR'
-                    });
-
-                    // Function to update the table with new data
-                    const updateTable = (data) => {
-                        let tableBody = document.getElementById('items-value');
-                        tableBody.innerHTML = ''; // Clear existing table rows
-
-                        // Populate the table with data for the current page
-                        data.forEach(function(item) {
-                            let row = document.createElement('tr');
-                            row.className =
-                                'bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600';
-
-                            // Create and append cells for each column
-                            let cell1 = document.createElement('th');
-                            cell1.setAttribute('scope', 'row');
-                            cell1.className = 'flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white';
-
-                            let image = document.createElement('img');
-                            image.className = 'w-10 h-10 rounded-full';
-                            image.src = 'img/65.png'; // You may want to dynamically set the image source based on item data
-                            image.alt = 'Jese image';
-
-                            let ps3 = document.createElement('div');
-                            ps3.className = 'ps-3';
-
-                            let itemName = document.createElement('div');
-                            itemName.className = 'text-base font-semibold';
-                            itemName.textContent = item
-                                .nama_barang; // Assuming 'nama_barang' is a property in your item object
-
-                            let itemDescription = document.createElement('div');
-                            itemDescription.className = 'font-normal text-gray-500';
-                            itemDescription.textContent = item
-                                .deskripsi; // Assuming 'deskripsi' is a property in your item object
-
-                            ps3.appendChild(itemName);
-                            ps3.appendChild(itemDescription);
-
-                            cell1.appendChild(image);
-                            cell1.appendChild(ps3);
-
-                            let cell2 = document.createElement('td');
-                            cell2.className = 'px-6 py-4';
-                            cell2.textContent = numberFormatter.format(item.harga);
-
-                            let cell3 = document.createElement('td');
-                            cell3.className = 'px-6 py-4';
-                            let statusDiv = document.createElement('div');
-                            statusDiv.className = 'flex items-center';
-
-                            if (item.stok < 1) {
-                                let statusBadge = document.createElement('div');
-                                statusBadge.className = 'h-2.5 w-2.5 rounded-full bg-red-700 me-2';
-                                statusDiv.appendChild(statusBadge);
-                                statusDiv.textContent = 'Habis';
-                            } else if (item.stok < 6 && item.stok > 0) {
-                                let statusBadge = document.createElement('div');
-                                statusBadge.className = 'h-2.5 w-2.5 rounded-full bg-red-300 me-2';
-                                statusDiv.appendChild(statusBadge);
-                                statusDiv.textContent = 'Sisa ' + item.stok;
-                            } else {
-                                let statusBadge = document.createElement('div');
-                                statusBadge.className = 'h-2.5 w-2.5 rounded-full bg-green-500 me-2';
-                                statusDiv.appendChild(statusBadge);
-                                statusDiv.textContent = 'Tersedia ' + item.stok;
-                            }
-
-                            cell3.appendChild(statusDiv);
-
-                            let cell4 = document.createElement('td');
-                            cell4.className = 'px-6 py-4 text-right';
-                            let downloadLink = document.createElement('a');
-                            downloadLink.href = '#';
-                            downloadLink.className = 'font-medium text-blue-600 dark:text-blue-500';
-
-                            let downloadButton = document.createElement('button');
-                            downloadButton.className = 'p-3 bg-blue-700 text-white rounded-lg active:scale-95';
-                            downloadButton.textContent = 'Unduh Laporan';
-
-                            downloadLink.appendChild(downloadButton);
-                            cell4.appendChild(downloadLink);
-
-                            row.appendChild(cell1);
-                            row.appendChild(cell2);
-                            row.appendChild(cell3);
-                            row.appendChild(cell4);
-
-                            tableBody.appendChild(row);
-                        });
-                    }
-                </script>
+        // Atur interval untuk memperbarui data setiap 5 detik (misalnya)
+        setInterval(fetchData, 5000); // Ubah nilai interval sesuai kebutuhan Anda
+    });
+</script>
 
             </div>
         </div>
