@@ -312,7 +312,7 @@
                                     </button>
                                 </div>
                                 <!-- Modal body -->
-                                <form action="{{ route('items.add') }}" method="POST" enctype="multipart/form-data">
+                                <form id="itemAddForm" action="{{ route('items.add') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
 
                                     @if ($errors->any())
@@ -327,7 +327,7 @@
                                                 <label for="name"
                                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
                                                     Barang</label>
-                                                <input type="text" name="name" id="name"
+                                                <input type="text" name="name" id="nameAdd"
                                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                     placeholder="Pulpen" required="">
                                             </div>
@@ -335,7 +335,7 @@
                                             <div class="mb-4">
                                                 <label for="price"
                                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Harga</label>
-                                                <input type="text" name="price" id="price"
+                                                <input type="text" name="price" id="priceAdd"
                                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                     placeholder="Rp. 20,000" required="">
                                             </div>
@@ -343,7 +343,7 @@
                                             <div class="mb-4">
                                                 <label for="stock"
                                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Stok</label>
-                                                <input type="text" name="stock" id="stock"
+                                                <input type="text" name="stock" id="stockAdd"
                                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                     placeholder="20" required="">
                                             </div>
@@ -351,7 +351,7 @@
                                             <div class="">
                                                 <label for="description"
                                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Deskripsi</label>
-                                                <textarea id="description" name="description" rows="4"
+                                                <textarea id="descriptionAdd" name="description" rows="4"
                                                     class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"></textarea>
                                             </div>
                                         </div>
@@ -362,7 +362,7 @@
                                             <img id="imagePreviewEdit" src="{{ asset('img/no-data.jpg') }}"
                                                 alt="Preview" class=""
                                                 style="box-shadow: rgba(50, 50, 93, 0.077) 0px 6px 12px -2px, rgba(0, 0, 0, 0.061) 0px 3px 7px -3px; border-radius: 10px; display: ; border: 1px solid rgba(0, 0, 0, 0.161); max-width: 300px; min-width: 300px; width: 100%; aspect-ratio: 1/1">
-                                            <input type="file" accept="image/*" id="gambarEdit" name="image"
+                                            <input type="file" accept="image/*" id="gambarEdit imageAdd" name="image"
                                                 class="mt-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                             <script>
                                                 document.addEventListener('DOMContentLoaded', function() {
@@ -739,27 +739,54 @@
                     '<a href="#" class="font-medium text-blue-600 dark:text-blue-500"><button class="p-3 bg-blue-700 text-white rounded-lg active:scale-95">Unduh Laporan</button></a>' +
                     '</td>' +
                     '</tr>';
-                $('#items-value').append(row); // Tambahkan baris ke tabel
+                $('#items-value').append(row);
             });
         }
 
-        // Fungsi untuk memperbarui data tabel secara periodik
+
         function fetchData() {
             $.ajax({
                 type: 'GET',
-                url: 'http://localhost:4444/items', // Ganti dengan URL endpoint Anda
+                url: 'http://localhost:4444/item',
                 success: function(response) {
-                    updateTable(response.data); // Panggil fungsi untuk memperbarui tabel dengan data baru
+                    updateTable(response.data);
                 },
                 error: function(xhr, status, error) {
-                    console.error(error); // Tangani kesalahan jika terjadi
+                    console.error(error);
                 }
             });
         }
 
-        // Atur interval untuk memperbarui data setiap 5 detik (misalnya)
-        setInterval(fetchData, 5000); // Ubah nilai interval sesuai kebutuhan Anda
+        var firstInterval = setInterval(fetchData, 0);
+
+        setTimeout(() => {
+            clearInterval(firstInterval)
+            setInterval(fetchData, 5000)
+        }, 0);
+
+
+//         $("form").submit(function (event) {
+//     var formData = {
+//       name: $("#name").val(),
+//       email: $("#email").val(),
+//       superheroAlias: $("#superheroAlias").val(),
+//     };
+
+//     $.ajax({
+//       type: "POST",
+//       url: "/items",
+//       data: formData,
+//       dataType: "json",
+//       encode: true,
+//     }).done(function (data) {
+//       console.log(data);
+//     });
+
+//     event.preventDefault();
+//   });
     });
+
+
 </script>
 
             </div>

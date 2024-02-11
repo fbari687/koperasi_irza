@@ -242,7 +242,7 @@ class PageController extends Controller
         // $items = Item::orderBy('created_at', 'desc')->get();
         $filters = ['terbaru', 'terlama', 'termahal', 'termurah', 'tersedia', 'habis'];
 
-        $response = $this->client->get('http://localhost:4444/items');
+        $response = $this->client->get('http://localhost:4444/item');
         $json = json_decode($response->getBody()->getContents(), true)['data'];
         // $collection = collect($json);
 
@@ -305,7 +305,7 @@ class PageController extends Controller
         }
 
         try {
-            $response = $this->client->post('http://localhost:4444/items', [
+            $response = $this->client->post('http://localhost:4444/item', [
                 'form_params' => $data
             ]);
 
@@ -331,7 +331,7 @@ class PageController extends Controller
         // dd($req->all());
 
         try {
-            $getProduct = $this->client->get('http://localhost:4444/items');
+            $getProduct = $this->client->get('http://localhost:4444/item');
             $product = json_decode($getProduct->getBody()->getContents(), true)['data'];
             $imageProduct = '';
             foreach ($product as $item) {
@@ -349,7 +349,6 @@ class PageController extends Controller
             }
 
             $data = [
-                'id' => $req->id,
                 'name' => $req->name,
                 'slug' => Str::slug($req->name),
                 'description' => $req->description,
@@ -359,20 +358,20 @@ class PageController extends Controller
                 'image' => $req->image,
             ];
 
-            if ($req->hasFile('gambar')) {
+            if ($req->hasFile('image')) {
                 if ($imageProduct) {
                     Storage::delete($imageProduct);
                 }
 
-                $file = $req->file('gambar');
+                $file = $req->file('image');
                 $extension = $file->getClientOriginalExtension();
                 $fileName = $data['slug'] . '-' . $extension;
                 $path = $file->storeAs('products', $fileName);
-                $data['gambar'] = $path;
+                $data['image'] = $path;
             }
 
             try {
-                $response = $this->client->post('http://localhost:4444/items', [
+                $response = $this->client->put('http://localhost:4444/item?id='.$req->id, [
                     'form_params' => $data,
                 ]);
 
