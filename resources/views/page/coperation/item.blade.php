@@ -740,7 +740,7 @@
                     '</div>' +
                     '</td>' +
                     '<td class="px-6 py-4 text-right flex items-center gap-2">' +
-                    '<a href="#" '+ `data-id='${item.id}'` +' class="delete-btn font-medium text-blue-600 dark:text-blue-500"><button class="p-3 bg-blue-700 text-white rounded-lg active:scale-95">Unduh Laporan</button></a>';
+                    '<a href="#" '+ `data-id='${item.id}'` +' class="delete-btn font-medium text-blue-600 dark:text-blue-500"><button class="p-3 bg-red-700 text-white rounded-lg active:scale-95">Hapus</button></a>';
                 $('#items-value').append(row);
             });
         }

@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/chatting', [PageController::class, 'messages'])->name('chatting');
 
     Route::get('/officer', [PageController::class, 'officer']);
-
+    Route::post('/officer', [PageController::class, 'officerAdd'])->name('officerAdd');
 
     Route::get('/classes', [PageController::class, 'classes']);
 

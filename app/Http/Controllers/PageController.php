@@ -193,6 +193,49 @@ class PageController extends Controller
         ]);
     }
 
+    public function officerAdd(Request $req)
+    {
+        // dd($req->all());
+        $validator = Validator::make($req->all(), [
+            'name' => 'required',
+            'role' => 'required',
+            'classes' => 'required',
+            'nis' => 'required|numeric',
+            'telephone' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+            'image' => '',
+        ]);
+
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $data = [
+            'name' => $req->name,
+            'role' => $req->role,
+            'class' => $req->classes,
+            'nis' => $req->nis,
+            'telephone' => $req->telephone,
+            'email' => $req->email,
+            'password' => $req->password,
+            'image' => '',
+        ];
+
+        if ($req->hasFile('image')) {
+            $file = $req->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $fileName = Str::slug($req->name) . '-' . $extension;
+            $path = $file->storeAs('photo-user', $fileName);
+            $data['image'] = $path;
+        }
+
+        User::create($data);
+
+        return redirect()->back()->with('success', 'USER BERHASIL DIBUAT');
+    }
+
     public function classes()
     {
         // $users = User::all();
@@ -396,6 +439,18 @@ class PageController extends Controller
     public function itemDelete($id)
     {
         try {
+            $getProduct = $this->client->get('http://localhost:4444/item');
+            $items = json_decode($getProduct->getBody()->getContents(), true)['data'];
+            $oldImg = '';
+            foreach ($items as $item) {
+                if ($item['id'] == $id) {
+                    $oldImg = $item['image'];
+                }
+            }
+            if ($oldImg) {
+                Storage::delete($oldImg);
+            }
+
             $response = $this->client->delete('http://localhost:4444/item?id=' . $id);
 
             return response()->json([
