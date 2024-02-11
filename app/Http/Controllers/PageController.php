@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\HelloEvent;
 use App\Models\Item;
 use App\Models\User;
 use App\Events\MyEvent;
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
+use function React\Promise\all;
 
 class PageController extends Controller
 {
@@ -48,7 +50,7 @@ class PageController extends Controller
     public function testPutApi(Request $req, $id)
     {
         try {
-            $response = $this->client->put('http://localhost:8001/api/students/'.$id, [
+            $response = $this->client->put('http://localhost:8001/api/students/' . $id, [
                 'form_params' => $req->all(),
             ]);
 
@@ -64,14 +66,13 @@ class PageController extends Controller
     public function testDeleteApi(Request $req, $id)
     {
         try {
-            $response = $this->client->delete('http://localhost:8001/api/students/'.$id);
+            $response = $this->client->delete('http://localhost:8001/api/students/' . $id);
 
             $status = $response->getStatusCode();
 
             $data = json_decode($response->getBody()->getContents(), true)['message'];
 
             dd($data);
-
         } catch (Exception $e) {
             dd($e->getMessage());
         }
@@ -80,17 +81,17 @@ class PageController extends Controller
     public function testViewApi(Request $req, $id)
     {
         try {
-            $response = $this->client->get('http://localhost:8001/api/students/'.$id);
+            $response = $this->client->get('http://localhost:8001/api/students/' . $id);
 
-        $status = $response->getStatusCode();
+            $status = $response->getStatusCode();
 
-        $data = json_decode($response->getBody()->getContents(), true);
+            $data = json_decode($response->getBody()->getContents(), true);
 
-        dd($data);
+            dd($data);
 
-        // $data = json_decode($response->getBody()->getContents(), true)['data'];
+            // $data = json_decode($response->getBody()->getContents(), true)['data'];
 
-        // dd($data['name']);
+            // dd($data['name']);
         } catch (Exception $e) {
             dd($e->getMessage());
         }
@@ -106,11 +107,32 @@ class PageController extends Controller
             $status = $response->getStatusCode();
             $data = json_decode($response->getBody()->getContents(), true);
 
-            dd($data);
+            dd($data, $status);
         } catch (Exception $e) {
             dd($e->getMessage());
         }
     }
+
+
+    public function testEvent()
+    {
+        $response = $this->client->get('https://api.quotable.io/random?minLength=150');
+        $data = json_decode($response->getBody()->getContents(), true);
+        Broadcast(new HelloEvent($data));
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -121,7 +143,7 @@ class PageController extends Controller
     public function dashboard()
     {
         try {
-            $response = $this->client->get('https://api.quotable.io/random?minLength=150');
+            $response = $this->client->get('http://api.quotable.io/random?minLength=150');
             $quote = json_decode($response->getBody()->getContents(), true);
 
             return view('page.dashboard', [
@@ -137,6 +159,11 @@ class PageController extends Controller
             ]);
         }
 
+        // return view('page.dashboard', [
+        //     'title' => 'Hello ' . ucfirst(auth()->user()->name) . ' ^_^',
+        //     'bgMenu' => 'dashboard',
+        //     'quote' => collect(['content' => 'Belum ada quotes untuk anda hari ini']),
+        // ]);
         // $response = $this->client->get('https://api.quotable.io/random?minLength=150');
         //     $quote = json_decode($response->getBody()->getContents(), true);
         //     // dd($quote['content']);
@@ -166,33 +193,241 @@ class PageController extends Controller
         ]);
     }
 
+    public function classes()
+    {
+        // $users = User::all();
+        $classes = [
+            [
+                'name' => 'XII-RPL',
+                'total' => 10
+            ],
+            [
+                'name' => 'XI-PPLG',
+                'total' => 10
+            ],
+            [
+                'name' => 'X-PPLG',
+                'total' => 10
+            ],
+            [
+                'name' => 'XII-MM',
+                'total' => 10
+            ],
+            [
+                'name' => 'XI-MM',
+                'total' => 10
+            ],
+            [
+                'name' => 'X-MM',
+                'total' => 10
+            ],
+        ];
+
+        return view('page.student-affairs.classes', [
+            'title' => "Koperasi - Classes",
+            'bgMenu' => 'classes',
+            'classes' => $classes
+            // 'users' => $users
+        ]);
+    }
+
+
+
+
+
+
+
     public function item()
     {
         // $items = Item::orderBy('created_at', 'desc')->get();
         $filters = ['terbaru', 'terlama', 'termahal', 'termurah', 'tersedia', 'habis'];
 
-        $response = $this->client->get('https://api.publicapis.org/entries');
-        $json = json_decode($response->getBody()->getContents(), true)['entries'];
-        $collection = collect($json);
+        $response = $this->client->get('http://localhost:4444/item');
+        $json = json_decode($response->getBody()->getContents(), true)['data'];
+        // $collection = collect($json);
 
-        // Menghitung jumlah halaman
-        $totalItems = $collection->count();
-        $itemsPerPage = 3;
-        $totalPages = ceil($totalItems / $itemsPerPage);
+        // // Menghitung jumlah halaman
+        // $totalItems = $collection->count();
+        // $itemsPerPage = 3;
+        // $totalPages = ceil($totalItems / $itemsPerPage);
 
-        // Mendapatkan nomor halaman dari parameter query string jika tersedia, jika tidak, menggunakan halaman pertama
-        $currentPage = request()->has('page') ? request()->query('page') : 1;
+        // // Mendapatkan nomor halaman dari parameter query string jika tersedia, jika tidak, menggunakan halaman pertama
+        // $currentPage = request()->has('page') ? request()->query('page') : 1;
 
-        // Mengambil data untuk halaman yang ditentukan
-        $data = $collection->forPage($currentPage, $itemsPerPage);
+        // // Mengambil data untuk halaman yang ditentukan
+        // $data = $collection->forPage($currentPage, $itemsPerPage);
 
         return view('page.coperation.item', [
             'title' => 'Koperasi - Barang',
             'bgMenu' => 'item',
             'filters' => $filters,
-            'data' => collect($data),
+            'data' => collect($json),
         ]);
     }
+
+    // function createSlug($string) {
+    //     $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $string), '-'));
+    //     return $slug;
+    // }
+
+    public function itemAdd(Request $req)
+    {
+        // dd($req->all());
+        $validator = Validator::make($req->all(), [
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'stock' => 'required',
+            // 'status' => 'required',
+            // 'status' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $data = [
+            'name' => $req->name,
+            'slug' => Str::slug($req->name),
+            'description' => $req->description,
+            'price' => $req->price,
+            'stock' => $req->stock,
+            'status' => 'available',
+            'image' => null,
+        ];
+
+        if ($req->hasFile('image')) {
+            $file = $req->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $fileName = $data['slug'] . '-' . $extension;
+            $path = $file->storeAs('products', $fileName);
+            $data['image'] = $path;
+        }
+
+        try {
+            $response = $this->client->post('http://localhost:4444/item', [
+                'form_params' => $data
+            ]);
+
+            $status = $response->getStatusCode();
+
+            $data = json_decode($response->getBody()->getContents(), true);
+
+            // return redirect('items')->with('success', 'BERHASIL MENAMBAH PRODUK');
+            return response()->json([
+                'status' => $status,
+                'data' => $data,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'error' => $e->getMessage()
+            ]);
+        }
+    }
+
+
+    public function itemEdit(Request $req)
+    {
+        // dd($req->all());
+
+        try {
+            $getProduct = $this->client->get('http://localhost:4444/item');
+            $product = json_decode($getProduct->getBody()->getContents(), true)['data'];
+            $imageProduct = '';
+            foreach ($product as $item) {
+                if ($req->id == $item['id']) {
+                    $imageProduct = $item['image'];
+                }
+            }
+
+            $validator = Validator::make($req->all(), [
+                'id' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+
+            $data = [
+                'name' => $req->name,
+                'slug' => Str::slug($req->name),
+                'description' => $req->description,
+                'price' => $req->price,
+                'stock' => $req->stock,
+                // 'status' => $user['status'],
+                'image' => $req->image,
+            ];
+
+            if ($req->hasFile('image')) {
+                if ($imageProduct) {
+                    Storage::delete($imageProduct);
+                }
+
+                $file = $req->file('image');
+                $extension = $file->getClientOriginalExtension();
+                $fileName = $data['slug'] . '-' . $extension;
+                $path = $file->storeAs('products', $fileName);
+                $data['image'] = $path;
+            }
+
+            try {
+                $response = $this->client->put('http://localhost:4444/item?id='.$req->id, [
+                    'form_params' => $data,
+                ]);
+
+                $data = json_decode($response->getBody()->getContents(), true)['data'];
+
+                return response()->json([
+                    'status' => $response->getStatusCode(),
+                    'data' => $data
+                ]);
+            } catch (Exception $e) {
+                return response()->json([
+                    'errors' => $e->getMessage(),
+                ]);
+            }
+        } catch (Exception $e) {
+            return response()->json([
+                'errors' => $e->getMessage(),
+            ]);
+        }
+    }
+
+    public function itemDelete($id)
+    {
+        try {
+            $response = $this->client->delete('http://localhost:4444/item?id=' . $id);
+
+            return response()->json([
+                'success' => true,
+                'status' => $response->getStatusCode(),
+                'data' => json_decode($response->getBody()->getContents(), true)['data'],
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'errors' => $e->getMessage()
+            ]);
+        }
+    }
+
+    public function itemView($id)
+    {
+        try {
+            $response = $this->client->get('api_url' . $id);
+
+            $data = json_decode($response->getBody()->getContents(), true)['data'];
+
+            return view('page.coperation.item.DETAIL?', [
+                'title' => $data['slug'],
+                'bgMenu' => 'items',
+                'item' => collect($data),
+            ]);
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors($e->getMessage())->with('errors', 'ERROR WHILE FETCHING DATA ITEM');
+        }
+    }
+
+
 
     public function report()
     {
@@ -202,11 +437,11 @@ class PageController extends Controller
         ]);
     }
 
-    public function handleBroad()
-    {
-        event(new MyEvent('Hello, world!'));
-        return response()->json(['message' => 'Event broadcasted']);
-    }
+    // public function handleBroad()
+    // {
+    //     event(new MyEvent('Hello, world!'));
+    //     return response()->json(['message' => 'Event broadcasted']);
+    // }
 
 
     public function profile()
