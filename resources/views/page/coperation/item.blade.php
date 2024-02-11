@@ -612,6 +612,9 @@
                                 Stok
                             </th>
                             <th scope="col" class="px-6 py-3">
+                                Terjual
+                            </th>
+                            <th scope="col" class="px-6 py-3">
                                 Status
                             </th>
                             <th scope="col" class="px-6 py-3 text-center">
@@ -730,15 +733,14 @@
                     '</th>' +
                     '<td class="px-6 py-4">' + item.description + '</td>' +
                     '<td class="px-6 py-4">' + item.stock + '</td>' +
+                    '<td class="px-6 py-4">' + item.total_sold + '</td>' +
                     '<td class="px-6 py-4">' +
                     '<div class="flex items-center">' +
                     '<div class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div>' + item.status +
                     '</div>' +
                     '</td>' +
-                    '<td class="px-6 py-4 text-right">' +
-                    '<a href="#" class="font-medium text-blue-600 dark:text-blue-500"><button class="p-3 bg-blue-700 text-white rounded-lg active:scale-95">Unduh Laporan</button></a>' +
-                    '</td>' +
-                    '</tr>';
+                    '<td class="px-6 py-4 text-right flex items-center gap-2">' +
+                    '<a href="#" '+ `data-id='${item.id}'` +' class="delete-btn font-medium text-blue-600 dark:text-blue-500"><button class="p-3 bg-blue-700 text-white rounded-lg active:scale-95">Unduh Laporan</button></a>';
                 $('#items-value').append(row);
             });
         }
@@ -765,26 +767,37 @@
         }, 0);
 
 
-//         $("form").submit(function (event) {
-//     var formData = {
-//       name: $("#name").val(),
-//       email: $("#email").val(),
-//       superheroAlias: $("#superheroAlias").val(),
-//     };
-
-//     $.ajax({
-//       type: "POST",
-//       url: "/items",
-//       data: formData,
-//       dataType: "json",
-//       encode: true,
-//     }).done(function (data) {
-//       console.log(data);
-//     });
-
-//     event.preventDefault();
-//   });
     });
+    $(document).ready(function() {
+        // Fungsi untuk menghapus item
+    function deleteItem(itemId) {
+        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+            type: 'DELETE',
+            url: '/items/' + itemId, // Ganti dengan URL endpoint delete Anda
+            data: {
+                _token: csrfToken // Sertakan token CSRF di sini
+            },
+            success: function(response) {
+                fetchData(); // Panggil kembali fetchData untuk memperbarui tabel setelah penghapusan berhasil
+            },
+            error: function(xhr, status, error) {
+                console.error(error); // Tangani kesalahan jika terjadi
+            }
+        });
+    }
+
+    // Tambahkan event listener ke setiap tombol delete
+    $(document).on('click', '.delete-btn', function(e) {
+        e.preventDefault(); // Mencegah tindakan default dari link
+        var itemId = $(this).data('id'); // Dapatkan ID item dari atribut data
+        var confirmation = confirm('Apakah Anda yakin ingin menghapus item ini?'); // Konfirmasi penghapusan
+        if (confirmation) {
+            deleteItem(itemId); // Panggil fungsi deleteItem jika pengguna mengonfirmasi
+        }
+    });
+});
+
 
 
 </script>

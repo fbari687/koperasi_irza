@@ -396,9 +396,10 @@ class PageController extends Controller
     public function itemDelete($id)
     {
         try {
-            $response = $this->client->delete('api_url' . $id);
+            $response = $this->client->delete('http://localhost:4444/item?id=' . $id);
 
             return response()->json([
+                'success' => true,
                 'status' => $response->getStatusCode(),
                 'data' => json_decode($response->getBody()->getContents(), true)['data'],
             ]);
