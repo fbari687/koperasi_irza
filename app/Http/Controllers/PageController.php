@@ -195,46 +195,134 @@ class PageController extends Controller
 
     public function officerAdd(Request $req)
     {
-        // dd($req->all());
-        $validator = Validator::make($req->all(), [
-            'name' => 'required',
-            'role' => 'required',
-            'classes' => 'required',
-            'nis' => 'required|numeric',
-            'telephone' => 'required',
-            'email' => 'required',
-            'password' => 'required',
-            'image' => '',
-        ]);
+        if (Auth::user()->role == 'admin') {
+            // dd($req->all());
+            $validator = Validator::make($req->all(), [
+                'name' => 'required',
+                'role' => 'required',
+                'classes' => 'required',
+                'nis' => 'required|numeric',
+                'telephone' => 'required',
+                'email' => 'required',
+                'password' => 'required',
+                'image' => '',
+            ]);
 
 
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+
+            $data = [
+                'name' => $req->name,
+                'role' => $req->role,
+                'class' => $req->classes,
+                'nis' => $req->nis,
+                'telephone' => $req->telephone,
+                'email' => $req->email,
+                'password' => bcrypt($req->password),
+                'photo' => '',
+            ];
+
+            if ($req->hasFile('image')) {
+                $file = $req->file('image');
+                $extension = $file->getClientOriginalExtension();
+                $fileName = Str::slug($req->name) . '.' . $extension;
+                $path = $file->storeAs('photo-user', $fileName);
+                $data['photo'] = $path;
+            }
+
+            User::create($data);
+
+            return redirect()->back()->with('success', 'USER BERHASIL DIBUAT');
+        } else {
+            return redirect()->back()->with('error', 'HAK AKSES KAMU TERBATAS');
         }
-
-        $data = [
-            'name' => $req->name,
-            'role' => $req->role,
-            'class' => $req->classes,
-            'nis' => $req->nis,
-            'telephone' => $req->telephone,
-            'email' => $req->email,
-            'password' => $req->password,
-            'image' => '',
-        ];
-
-        if ($req->hasFile('image')) {
-            $file = $req->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $fileName = Str::slug($req->name) . '-' . $extension;
-            $path = $file->storeAs('photo-user', $fileName);
-            $data['image'] = $path;
-        }
-
-        User::create($data);
-
-        return redirect()->back()->with('success', 'USER BERHASIL DIBUAT');
     }
+
+    public function officerEdit(Request $req, $id)
+    {
+        if (Auth::user()->role == 'admin') {
+            // dd($req->all(), $id);
+            $user = User::findOrFail($id);
+
+            $validator = Validator::make($req->all(), [
+                'name' => 'required',
+                'role' => 'required',
+                'classes' => 'required',
+                'nis' => 'required|numeric',
+                'telephone' => 'required',
+                'email' => 'required|unique:users,email,' . $user->id,
+                'password' => '',
+                'image' => '',
+            ]);
+
+
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+
+            $data = [
+                'name' => $req->name,
+                'role' => $req->role,
+                'class' => $req->classes,
+                'nis' => $req->nis,
+                'telephone' => $req->telephone,
+                'email' => $req->email,
+                'password' => $user->password,
+                'photo' => $user->photo,
+            ];
+
+            if ($req->password) {
+                $data['password'] = bcrypt($req->password);
+            }
+
+            $oldImage = $user->image;
+
+            if ($req->hasFile('image')) {
+
+                if ($oldImage) {
+                    Storage::delete($oldImage);
+                }
+
+                $file = $req->file('image');
+                $extension = $file->getClientOriginalExtension();
+                $fileName = Str::slug($req->name) . '.' . $extension;
+                $path = $file->storeAs('photo-user', $fileName);
+                $data['photo'] = $path;
+            }
+
+            $user->update($data);
+
+            return redirect()->back()->with('success', 'INFORMASI USER BERHASIL DIEDIT');
+        } else {
+            return redirect()->back()->with('error', 'HAK AKSES KAMU TERBATAS');
+        }
+    }
+
+
+    public function officerDelete(Request $req, $id)
+    {
+        if (Auth::user()->role == 'admin') {
+            $user = User::findOrFail($id);
+            $oldImage = $user->photo;
+            // dd($oldImage);
+
+            if ($oldImage) {
+                Storage::delete($oldImage);
+            }
+
+            $user->delete();
+
+            return redirect()->back()->with('success', 'BERHASIL MENGHAPUS USER');
+
+        } else {
+            return redirect()->back()->with('error', 'HAK AKSES KAMU TERBATAS');
+        }
+    }
+
+
+
 
     public function classes()
     {
@@ -342,7 +430,7 @@ class PageController extends Controller
         if ($req->hasFile('image')) {
             $file = $req->file('image');
             $extension = $file->getClientOriginalExtension();
-            $fileName = $data['slug'] . '-' . $extension;
+            $fileName = $data['slug'] . '.' . $extension;
             $path = $file->storeAs('products', $fileName);
             $data['image'] = $path;
         }
@@ -408,13 +496,13 @@ class PageController extends Controller
 
                 $file = $req->file('image');
                 $extension = $file->getClientOriginalExtension();
-                $fileName = $data['slug'] . '-' . $extension;
+                $fileName = $data['slug'] . '.' . $extension;
                 $path = $file->storeAs('products', $fileName);
                 $data['image'] = $path;
             }
 
             try {
-                $response = $this->client->put('http://localhost:4444/item?id='.$req->id, [
+                $response = $this->client->put('http://localhost:4444/item?id=' . $req->id, [
                     'form_params' => $data,
                 ]);
 

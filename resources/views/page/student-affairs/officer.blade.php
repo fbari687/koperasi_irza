@@ -155,7 +155,7 @@
 
 
         {{-- MODAL TAMBAH PETUGAS --}}
-        <div id="defaultModal" tabindex="-1" aria-hidden="true"
+        <div id="tambahPetugasModal" tabindex="-1" aria-hidden="true"
             class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
             <div class="relative p-4 w-full max-w-3xl h-full md:h-auto">
                 <!-- Modal content -->
@@ -164,11 +164,11 @@
                     <div
                         class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                            Tambah Barang
+                            Tambah Petugas
                         </h3>
                         <button type="button"
                             class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                            data-modal-toggle="defaultModal">
+                            data-modal-toggle="tambahPetugasModal">
                             <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
@@ -179,8 +179,7 @@
                         </button>
                     </div>
                     <!-- Modal body -->
-                    <form action="{{ route('officerAdd') }}" method="POST"
-                        enctype="multipart/form-data">
+                    <form action="{{ route('officerAdd') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         @if ($errors->any())
@@ -196,7 +195,7 @@
                                     Petugas</label>
                                 <input type="text" name="name" id="name"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    placeholder="Pulpen" required="">
+                                    placeholder="Name" required="">
                             </div>
 
                             <div class="">
@@ -230,7 +229,7 @@
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nis</label>
                                     <input type="number" name="nis" id="nis"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        placeholder="Pulpen" required="">
+                                        placeholder="nis" required="">
                                 </div>
 
                                 <div class="mb-4">
@@ -246,7 +245,7 @@
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
                                     <input type="email" name="email" id="email"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        placeholder="20" required="">
+                                        placeholder="email@mail.com" required="">
                                 </div>
 
                                 <div class="mb-4">
@@ -254,7 +253,7 @@
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                                     <input type="password" name="password" id="password"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        placeholder="20" required="">
+                                        placeholder="****" required="">
                                 </div>
 
                             </div>
@@ -302,7 +301,8 @@
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <div
                         class="flex justify-between items-center p-5 text-sm font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
-                        <button type="button" data-modal-target="defaultModal" data-modal-toggle="defaultModal"
+                        <button type="button" data-modal-target="tambahPetugasModal"
+                            data-modal-toggle="tambahPetugasModal"
                             class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg px-5 py-2.5 text-center me-2 mb-2">TAMBAH
                             PETUGAS</button>
                         <label for="table-search" class="sr-only">Search</label>
@@ -326,7 +326,7 @@
                             <th scope="col" class="px-6 py-3">
                                 No.
                             </th>
-                            <th scope="col" class="px-6 py-3">
+                            <th scope="col" class="pr-6 py-3">
                                 Nama
                             </th>
                             <th scope="col" class="px-6 py-3">
@@ -350,8 +350,9 @@
                                     {{ $loop->iteration }}
                                 </td>
                                 <th scope="row"
-                                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    <img src="{{ asset('storage/'.$user->image) }}" alt="">
+                                    class="flex justify-start items-center gap-2 pr-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <img src="{{ asset('storage/' . $user->photo) }}" class="w-12 rounded shadow"
+                                        alt="" />
                                     <div>{{ ucfirst($user->name) }}</div>
                                 </th>
                                 <td class="px-6 py-4">
@@ -363,50 +364,217 @@
                                 <td class="px-6 py-4">
                                     {{ $user->telephone }}
                                 </td>
-                                <td class="px-6 py-4 text-right">
-                                    <a href="#"
-                                        class="font-bold text-red-600 dark:text-red-500 hover:underline">Hapus</a>
-                                </td>
+                                @if (Auth::user()->role == 'admin')
+                                    <td class="px-6 py-4 text-right flex justify-start items-center gap-2">
+                                        <button type="button" data-modal-target="editPetugas-{{ $loop->iteration }}"
+                                            data-modal-toggle="editPetugas-{{ $loop->iteration }}"
+                                            class="font-bold text-green-600 dark:text-green-500 hover:underline">Edit</button>
+
+                                        <button type="button" data-modal-target="hapusPetugas-{{ $loop->iteration }}"
+                                            data-modal-toggle="hapusPetugas-{{ $loop->iteration }}"
+                                            class="font-bold text-red-600 dark:text-red-500 hover:underline">Hapus</button>
+                                    </td>
+                                @endif
                             </tr>
+
+                            @if (Auth::user()->role == 'admin')
+                                {{-- MODAL HAPUS PETUGAS --}}
+                                <div id="hapusPetugas-{{ $loop->iteration }}" tabindex="-1"
+                                    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                    <div class="relative p-4 w-full max-w-md max-h-full">
+                                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                            <button type="button"
+                                                class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                                data-modal-hide="hapusPetugas-{{ $loop->iteration }}">
+                                                <svg class="w-3 h-3" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    viewBox="0 0 14 14">
+                                                    <path stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="2"
+                                                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                                </svg>
+                                                <span class="sr-only">Close modal</span>
+                                            </button>
+                                            <div class="p-4 md:p-5 text-center">
+                                                <form method="post"
+                                                    action="{{ route('officerDelete', ['id' => $user->id]) }}">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200"
+                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                        fill="none" viewBox="0 0 20 20">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2"
+                                                            d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                    </svg>
+                                                    <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                                                        Apakah Kamu Yakin Akan Menghapus User {{ $user->name }}</h3>
+                                                    <button type="submit"
+                                                        class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">
+                                                        Hapus
+                                                    </button>
+                                                    <button data-modal-hide="popup-modal" type="button"
+                                                        class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                {{-- MODAL EDIT PETUGAS --}}
+                                <div id="editPetugas-{{ $loop->iteration }}" tabindex="-1" aria-hidden="true"
+                                    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
+                                    <div class="relative p-4 w-full max-w-3xl h-full md:h-auto">
+                                        <!-- Modal content -->
+                                        <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
+                                            <!-- Modal header -->
+                                            <div
+                                                class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
+                                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                                    Edit Petugas
+                                                </h3>
+                                                <button type="button"
+                                                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                                    data-modal-toggle="editPetugas-{{ $loop->iteration }}">
+                                                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor"
+                                                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd"
+                                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                            clip-rule="evenodd"></path>
+                                                    </svg>
+                                                    <span class="sr-only">Close modal</span>
+                                                </button>
+                                            </div>
+                                            <!-- Modal body -->
+                                            <form action="{{ route('officerEdit', ['id' => $user->id]) }}" method="POST"
+                                                enctype="multipart/form-data">
+                                                @csrf
+                                                @method('put')
+
+                                                @if ($errors->any())
+                                                    @foreach ($errors->all() as $error)
+                                                        {{ $error }}
+                                                    @endforeach
+                                                @endif
+                                                <div class="grid gap-4 mb-4 sm:grid-cols-2">
+
+                                                    <div class="">
+                                                        <label for="name"
+                                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
+                                                            Petugas</label>
+                                                        <input type="text" name="name" id="name"
+                                                            value="{{ $user->name }}"
+                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            placeholder="Name" required="">
+                                                    </div>
+
+                                                    <div class="">
+                                                        <label for="role"
+                                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pilih
+                                                            Role</label>
+                                                        <select name="role" id="role"
+                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                            <option selected value="{{ $user->role }}">Pilih Role
+                                                            </option>
+                                                            <option value="admin">Admin</option>
+                                                            <option value="petugas">Petugas</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div>
+                                                        <div class="mb-4">
+                                                            <label for="classes"
+                                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pilih
+                                                                Kelas</label>
+                                                            <select name="classes" id="classes"
+                                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                                <option selected value="{{ $user->class }}">Pilih Kelas
+                                                                </option>
+                                                                <option value="XII-RPL">XII-RPL</option>
+                                                                <option value="XI-PPLG">XI-PPLG</option>
+                                                                <option value="X-PPLG">X-PPLG</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="mb-4">
+                                                            <label for="nis"
+                                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nis</label>
+                                                            <input type="number" name="nis" id="nis"
+                                                                value="{{ $user->nis }}"
+                                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                                placeholder="nis" required="">
+                                                        </div>
+
+                                                        <div class="mb-4">
+                                                            <label for="telephone"
+                                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Telepon</label>
+                                                            <input type="text" name="telephone" id="telephone"
+                                                                value="{{ $user->telephone }}"
+                                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                                placeholder="0888 8888 8888" required="">
+                                                        </div>
+
+                                                        <div class="mb-4">
+                                                            <label for="email"
+                                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                                                            <input type="email" name="email" id="email"
+                                                                value="{{ $user->email }}"
+                                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                                placeholder="email@mail.com" required="">
+                                                        </div>
+
+                                                        <div class="mb-4">
+                                                            <label for="password"
+                                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                                                            <input type="password" name="password" id="password"
+                                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                                placeholder="****">
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div>
+                                                        <label for="image"
+                                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gambar</label>
+                                                        <img id="imagePreviewEdit" src="{{ asset('storage/'.$user->photo) }}"
+                                                            alt="Preview" class=""
+                                                            style="box-shadow: rgba(50, 50, 93, 0.077) 0px 6px 12px -2px, rgba(0, 0, 0, 0.061) 0px 3px 7px -3px; border-radius: 10px; display: ; border: 1px solid rgba(0, 0, 0, 0.161); max-width: 325px; min-width: 325px; width: 100%; aspect-ratio: 1/1">
+                                                        <input type="file" accept="image/*" id="gambarEdit"
+                                                            name="image"
+                                                            class="mt-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                                        <script>
+                                                            document.addEventListener('DOMContentLoaded', function() {
+                                                                const imageInputEdit = document.getElementById('gambarEdit');
+                                                                const imagePreviewEdit = document.getElementById('imagePreviewEdit');
+
+                                                                imageInputEdit.addEventListener('change', function() {
+                                                                    if (imageInputEdit.files && imageInputEdit.files[0]) {
+                                                                        const reader = new FileReader();
+
+                                                                        reader.onload = function(e) {
+                                                                            imagePreviewEdit.src = e.target.result;
+                                                                            imagePreviewEdit.style.display = 'block';
+                                                                        };
+
+                                                                        reader.readAsDataURL(imageInputEdit.files[0]);
+                                                                    }
+                                                                });
+                                                            });
+                                                        </script>
+                                                    </div>
+                                                </div>
+                                                <button type="submit"
+                                                    class="mr-4 block text-white bg-green-700 hover:bg-primary-800 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:hover:bg-green-700">
+                                                    Tambahkan
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                         @endforeach
-                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <th scope="row"
-                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                Microsoft Surface Pro
-                            </th>
-                            <td class="px-6 py-4">
-                                White
-                            </td>
-                            <td class="px-6 py-4">
-                                Laptop PC
-                            </td>
-                            <td class="px-6 py-4">
-                                $1999
-                            </td>
-                            <td class="px-6 py-4 text-right">
-                                <a href="#"
-                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                            </td>
-                        </tr>
-                        <tr class="bg-white dark:bg-gray-800">
-                            <th scope="row"
-                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                Magic Mouse 2
-                            </th>
-                            <td class="px-6 py-4">
-                                Black
-                            </td>
-                            <td class="px-6 py-4">
-                                Accessories
-                            </td>
-                            <td class="px-6 py-4">
-                                $99
-                            </td>
-                            <td class="px-6 py-4 text-right">
-                                <a href="#"
-                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
             </div>

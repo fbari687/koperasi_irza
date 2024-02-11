@@ -27,6 +27,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/officer', [PageController::class, 'officer']);
     Route::post('/officer', [PageController::class, 'officerAdd'])->name('officerAdd');
+    Route::put('/officer/{id}', [PageController::class, 'officerEdit'])->name('officerEdit');
+    Route::delete('/officer/{id}', [PageController::class, 'officerDelete'])->name('officerDelete');
 
     Route::get('/classes', [PageController::class, 'classes']);
 
