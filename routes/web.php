@@ -30,22 +30,16 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/classes', [PageController::class, 'classes']);
 
-
-
-
-
-
     Route::get('/items', [PageController::class, 'item']);
+    Route::get("/item/{id}", [PageController::class, 'getOneItem']);
+
+    Route::get('/items/get', [PageController::class, 'getItems']);
     Route::get('/items/{id}', [PageController::class, 'itemView']);
     Route::post('/items', [PageController::class, 'itemAdd'])->name('items.add');
     Route::put('/items', [PageController::class, 'itemEdit'])->name('item.edit');
     Route::delete('/items/{id}', [PageController::class, 'itemDelete']);
 
-
-
-
-
-
+    Route::get('/transactions', [PageController::class, 'transactionView']);
 
 
     Route::post('/test-api', [PageController::class, 'testAddApi'])->name('testAddApi');

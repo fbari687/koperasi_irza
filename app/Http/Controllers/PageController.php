@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\HelloEvent;
-use App\Models\Item;
 use App\Models\User;
-use App\Events\MyEvent;
 use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
@@ -16,140 +13,46 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-
-use function React\Promise\all;
+use Throwable;
 
 class PageController extends Controller
 {
-    protected $client;
+    protected $apiEndpoint;
 
     public function __construct()
     {
-        $this->client = new Client([
-            'verify' => base_path('cacert.pem'),
-        ]);
+        // $this->client = new Client([
+        //     'verify' => base_path('cacert.pem'),
+        // ]);
+        $this->apiEndpoint = env('API_ENDPOINT');
     }
-
-
-    public function testAddApi(Request $req)
-    {
-        // dd($req->all());
-        try {
-            $response = $this->client->post('http://localhost:8001/api/students', [
-                'form_params' => $req->all(),
-            ]);
-            $status = $response->getStatusCode();
-            $data = $response->getBody()->getContents();
-
-            dd($data);
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
-    }
-
-    public function testPutApi(Request $req, $id)
-    {
-        try {
-            $response = $this->client->put('http://localhost:8001/api/students/' . $id, [
-                'form_params' => $req->all(),
-            ]);
-
-            $status = $response->getStatusCode();
-            $data = json_decode($response->getBody()->getContents(), true)['message'];
-
-            dd($data);
-        } catch (Exception $e) {
-            dd($e->getMessage());
-        }
-    }
-
-    public function testDeleteApi(Request $req, $id)
-    {
-        try {
-            $response = $this->client->delete('http://localhost:8001/api/students/' . $id);
-
-            $status = $response->getStatusCode();
-
-            $data = json_decode($response->getBody()->getContents(), true)['message'];
-
-            dd($data);
-        } catch (Exception $e) {
-            dd($e->getMessage());
-        }
-    }
-
-    public function testViewApi(Request $req, $id)
-    {
-        try {
-            $response = $this->client->get('http://localhost:8001/api/students/' . $id);
-
-            $status = $response->getStatusCode();
-
-            $data = json_decode($response->getBody()->getContents(), true);
-
-            dd($data);
-
-            // $data = json_decode($response->getBody()->getContents(), true)['data'];
-
-            // dd($data['name']);
-        } catch (Exception $e) {
-            dd($e->getMessage());
-        }
-    }
-
-    public function testDelWhichApi(Request $req)
-    {
-        try {
-            $response = $this->client->post('http://localhost:8001/api/students/delete', [
-                'form_params' => $req->all(),
-            ]);
-
-            $status = $response->getStatusCode();
-            $data = json_decode($response->getBody()->getContents(), true);
-
-            dd($data, $status);
-        } catch (Exception $e) {
-            dd($e->getMessage());
-        }
-    }
-
-
-    public function testEvent()
-    {
-        $response = $this->client->get('https://api.quotable.io/random?minLength=150');
-        $data = json_decode($response->getBody()->getContents(), true);
-        Broadcast(new HelloEvent($data));
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     public function dashboard()
     {
+
         try {
-            $response = $this->client->get('http://api.quotable.io/random?minLength=150');
-            $quote = json_decode($response->getBody()->getContents(), true);
+            $response = Http::get('http://api.quotable.io/random?minLength=150');
+            $quote = json_decode($response, true);
+
+            $responseTransaction = Http::get($this->apiEndpoint . "/transaction");
+            $data = json_decode($responseTransaction, true);
+            $transactionsData = $data['data'];
+            $transactions = collect($transactionsData);
+
+            $responseItems = Http::get($this->apiEndpoint . "/item?sold=terlaris");
+            $json = json_decode($responseItems, true);
+            $itemsC = collect($json['data']);
+            $items = $itemsC->all();
 
             return view('page.dashboard', [
                 'title' => 'Hello ' . ucfirst(auth()->user()->name) . ' ^_^',
                 'bgMenu' => 'dashboard',
                 'quote' => collect($quote),
+                'transactions' => $transactions,
+                'items' => $items,
+                'countItems' => $itemsC->count(),
+                'countTransaction' => $transactions->count()
             ]);
         } catch (RequestException $e) {
             return view('page.dashboard', [
@@ -231,22 +134,17 @@ class PageController extends Controller
         ]);
     }
 
-
-
-
-
-
-
     public function item()
     {
         // $items = Item::orderBy('created_at', 'desc')->get();
         $filters = ['terbaru', 'terlama', 'termahal', 'termurah', 'tersedia', 'habis'];
 
-        $response = $this->client->get('http://localhost:4444/item');
-        $json = json_decode($response->getBody()->getContents(), true)['data'];
-        // $collection = collect($json);
+        $response = Http::get($this->apiEndpoint . "/item");
+        $json = json_decode($response, true);
+        $itemsC = collect($json['data']);
+        $items = $itemsC->all();
+        $ranItems = $itemsC->take(4);
 
-        // // Menghitung jumlah halaman
         // $totalItems = $collection->count();
         // $itemsPerPage = 3;
         // $totalPages = ceil($totalItems / $itemsPerPage);
@@ -261,7 +159,8 @@ class PageController extends Controller
             'title' => 'Koperasi - Barang',
             'bgMenu' => 'item',
             'filters' => $filters,
-            'data' => collect($json),
+            'items' => $items,
+            'ranItems' => $ranItems,
         ]);
     }
 
@@ -269,6 +168,18 @@ class PageController extends Controller
     //     $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $string), '-'));
     //     return $slug;
     // }
+
+    public function getItems(Request $request)
+    {
+        $response = Http::get($this->apiEndpoint . "/item");
+        $json = json_decode($response, true);
+        $items = collect($json['data']);
+        $items = $items->all();
+
+        return response()->json([
+            'data' => $items
+        ]);
+    }
 
     public function itemAdd(Request $req)
     {
@@ -297,135 +208,125 @@ class PageController extends Controller
         ];
 
         if ($req->hasFile('image')) {
-            $file = $req->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $fileName = $data['slug'] . '-' . $extension;
-            $path = $file->storeAs('products', $fileName);
-            $data['image'] = $path;
+            $image = $req->file('image')->store('products');
+            $data['image'] = asset("storage/" . $image);
         }
 
         try {
-            $response = $this->client->post('http://localhost:4444/item', [
-                'form_params' => $data
+            $response = Http::post($this->apiEndpoint . '/item', $data);
+
+            if ($response->failed()) {
+                throw new Exception('API request failed with status code ' . $response->status());
+            }
+
+            return redirect('/items')->with([
+                'success' => "Berhasil Menambahkan Produk"
             ]);
-
-            $status = $response->getStatusCode();
-
-            $data = json_decode($response->getBody()->getContents(), true);
-
-            // return redirect('items')->with('success', 'BERHASIL MENAMBAH PRODUK');
-            return response()->json([
-                'status' => $status,
-                'data' => $data,
-            ]);
-        } catch (Exception $e) {
-            return response()->json([
+        } catch (Throwable $e) {
+            return redirect('/items')->with([
                 'error' => $e->getMessage()
             ]);
         }
+    }
+    public function getOneItem(string $id)
+    {
+        $id = (int)$id;
+        $response = Http::get($this->apiEndpoint . "/item/find?id=" . $id);
+        $data = json_decode($response, true)['data'];
+        $item = collect($data);
+
+        return response()->json([
+            'data' => $item->all()
+        ]);
     }
 
 
     public function itemEdit(Request $req)
     {
-        // dd($req->all());
+        $validated = $req->validate([
+            'id' => 'required',
+            'name' => 'required',
+            'price' => 'required',
+            'stock' => 'required',
+            'description' => 'required'
+        ]);
 
-        try {
-            $getProduct = $this->client->get('http://localhost:4444/item');
-            $product = json_decode($getProduct->getBody()->getContents(), true)['data'];
-            $imageProduct = '';
-            foreach ($product as $item) {
-                if ($req->id == $item['id']) {
-                    $imageProduct = $item['image'];
-                }
-            }
-
-            $validator = Validator::make($req->all(), [
-                'id' => 'required',
+        if ($req->hasFile('image')) {
+            $req->validate([
+                'image' => 'image'
             ]);
 
-            if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator)->withInput();
+            $image = $req->image->store('products');
+            $validated['image'] = asset('storage/' . $image);
+            $filename = basename(parse_url($req->oldImage)['path']);
+            Storage::delete('public/products/' . $filename);
+        } else {
+            $validated['image'] = $req->oldImage;
+        }
+
+        $validated['price'] = (int)$validated['price'];
+        $validated['stock'] = (int)$validated['stock'];
+        $validated['slug'] = Str::slug($req->name);
+
+        try {
+            $response = Http::put($this->apiEndpoint . "/item?id=" . $validated['id'], $validated);
+
+            if ($response->failed()) {
+                throw new Exception('API request failed with status code ' . $response->status());
             }
 
-            $data = [
-                'name' => $req->name,
-                'slug' => Str::slug($req->name),
-                'description' => $req->description,
-                'price' => $req->price,
-                'stock' => $req->stock,
-                // 'status' => $user['status'],
-                'image' => $req->image,
-            ];
-
-            if ($req->hasFile('image')) {
-                if ($imageProduct) {
-                    Storage::delete($imageProduct);
-                }
-
-                $file = $req->file('image');
-                $extension = $file->getClientOriginalExtension();
-                $fileName = $data['slug'] . '-' . $extension;
-                $path = $file->storeAs('products', $fileName);
-                $data['image'] = $path;
-            }
-
-            try {
-                $response = $this->client->put('http://localhost:4444/item?id='.$req->id, [
-                    'form_params' => $data,
-                ]);
-
-                $data = json_decode($response->getBody()->getContents(), true)['data'];
-
-                return response()->json([
-                    'status' => $response->getStatusCode(),
-                    'data' => $data
-                ]);
-            } catch (Exception $e) {
-                return response()->json([
-                    'errors' => $e->getMessage(),
-                ]);
-            }
-        } catch (Exception $e) {
-            return response()->json([
+            return redirect('/items')->with([
+                'success' => "Berhasil Mengubah Produk"
+            ]);
+        } catch (Throwable $e) {
+            return redirect('/items')->with([
                 'errors' => $e->getMessage(),
             ]);
         }
     }
 
-    public function itemDelete($id)
+    public function itemDelete(string $id)
     {
-        try {
-            $response = $this->client->delete('http://localhost:4444/item?id=' . $id);
+        $id = (int)$id;
+        $getResponse = Http::get($this->apiEndpoint . "/item/find?id=" . $id);
+        $data = json_decode($getResponse, true)['data'];
+        $item = collect($data);
+        $filename = basename(parse_url($item['image'])['path']);
 
-            return response()->json([
-                'success' => true,
-                'status' => $response->getStatusCode(),
-                'data' => json_decode($response->getBody()->getContents(), true)['data'],
+        try {
+            $response = Http::delete($this->apiEndpoint . "/item?id=" . $id);
+            Storage::delete('public/products/' . $filename);
+
+            if ($response->failed()) {
+                throw new Exception('API request failed with status code ' . $response->status());
+            }
+
+            return redirect('/items')->with([
+                'success' => "Berhasil Menghapus Produk"
             ]);
-        } catch (Exception $e) {
-            return response()->json([
+        } catch (Throwable $e) {
+            return redirect('/items')->with([
                 'errors' => $e->getMessage()
             ]);
         }
     }
 
-    public function itemView($id)
-    {
-        try {
-            $response = $this->client->get('api_url' . $id);
+    // public function itemView($id)
+    // {
+    //     try {
+    //         $response = $this->client->get('api_url' . $id);
 
-            $data = json_decode($response->getBody()->getContents(), true)['data'];
+    //         $data = json_decode($response->getBody()->getContents(), true)['data'];
 
-            return view('page.coperation.item.DETAIL?', [
-                'title' => $data['slug'],
-                'bgMenu' => 'items',
-                'item' => collect($data),
-            ]);
-        } catch (Exception $e) {
-            return redirect()->back()->withErrors($e->getMessage())->with('errors', 'ERROR WHILE FETCHING DATA ITEM');
-        }
-    }
+    //         return view('page.coperation.item.DETAIL?', [
+    //             'title' => $data['slug'],
+    //             'bgMenu' => 'items',
+    //             'item' => collect($data),
+    //         ]);
+    //     } catch (Exception $e) {
+    //         return redirect()->back()->withErrors($e->getMessage())->with('errors', 'ERROR WHILE FETCHING DATA ITEM');
+    //     }
+    // }
 
 
 
@@ -537,5 +438,19 @@ class PageController extends Controller
 
 
         return redirect('/profile')->with('success', 'BERHASIL MENGUPDATE DATA');
+    }
+
+    public function transactionView()
+    {
+        $response = Http::get($this->apiEndpoint . "/transaction");
+        $data = json_decode($response, true);
+        $transactionsData = $data['data'];
+        $transactions = collect($transactionsData);
+
+        return view('page.coperation.transaction', [
+            'title' => 'Koperasi - Transaksi',
+            'bgMenu' => "Transaksi",
+            'transactions' => $transactions
+        ]);
     }
 }

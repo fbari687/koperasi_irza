@@ -10,8 +10,8 @@
                     <p id="about-tab" data-tabs-target="#about" role="tab" aria-controls="about" aria-selected="true" class="inline-block p-4 text-blue-600 rounded-ss-lg dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-blue-500">{{ now()->formatLocalized('%A, %d %B %Y') }}</p>
                     <p id="about-tab" data-tabs-target="#about" role="tab" aria-controls="about" aria-selected="true" class="inline-block p-4 text-blue-600 rounded-ss-lg dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-blue-500 font-bold">{{ ucfirst(auth()->user()->name) }} {{ ucfirst(auth()->user()->class) }}</p>
                 </div>
-                <div id="defaultTabContent">
-                    <div class="hidden p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800" id="about" role="tabpanel" aria-labelledby="about-tab">
+                <div id="">
+                    <div class="p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800">
                         <h2 class="mb-3 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">Have a Nice Day :)</h2>
                         <p class="mb-3 text-gray-500 dark:text-gray-400">{{ $quote['content'] }}</p>
                         <p class="inline-flex items-center font-medium text-blue-600 hover:text-blue-800 dark:text-blue-500 dark:hover:text-blue-700">~ <i>{{ $quote['author'] }} </i></p>
@@ -20,45 +20,11 @@
             </div>
         </div>
     </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-        <div class="rounded-lg h-32 p-4 bg-blue-500 text-white flex justify-between items-center shadow">
-            <div class="flex flex-col items-start justify-center">
-                <h1 class="text-3xl font-semibold">23</h1>
-                <h1 class="text-2xl font-bold">Total Chindo</h1>
-            </div>
-            <i class="fa-solid fa-money-bills text-5xl"></i>
-        </div>
-
-        <div class="rounded-lg h-32 p-4 bg-blue-500 text-white flex justify-between items-center shadow">
-            <div class="flex flex-col items-start justify-center">
-                <h1 class="text-3xl font-semibold">23</h1>
-                <h1 class="text-2xl font-bold">Total Chindo</h1>
-            </div>
-            <i class="fa-solid fa-money-bills text-5xl"></i>
-        </div>
-
-        <div class="rounded-lg h-32 p-4 bg-blue-500 text-white flex justify-between items-center shadow">
-            <div class="flex flex-col items-start justify-center">
-                <h1 class="text-3xl font-semibold">23</h1>
-                <h1 class="text-2xl font-bold">Total Chindo</h1>
-            </div>
-            <i class="fa-solid fa-money-bills text-5xl"></i>
-        </div>
-
-        <div class="rounded-lg h-32 p-4 bg-blue-500 text-white flex justify-between items-center shadow">
-            <div class="flex flex-col items-start justify-center">
-                <h1 class="text-3xl font-semibold">23</h1>
-                <h1 class="text-2xl font-bold">Total Chindo</h1>
-            </div>
-            <i class="fa-solid fa-money-bills text-5xl"></i>
-        </div>
-
-    </div>
     <div class="rounded-lg mb-4">
 
 
 
-<div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+{{-- <div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
     <div class="flex justify-between">
       <div>
         <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">32.4k</h5>
@@ -117,117 +83,34 @@
         </a>
       </div>
     </div>
-  </div>
-
-
-
-
+  </div> --}}
     </div>
-
-
-
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
 
 
 <div class="w-full p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
     <div class="flex items-center justify-between mb-4">
         <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Latest Transactions</h5>
-        <a href="#" class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">
+        <a href="/transactions" class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">
             View all
         </a>
    </div>
    <div class="flow-root">
         <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+            @foreach ($transactions as $transaction)
             <li class="py-3 sm:py-4">
                 <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <img class="w-8 h-8 rounded-full" src="{{ asset('img/65.png') }}" alt="Neil image">
-                    </div>
                     <div class="flex-1 min-w-0 ms-4">
                         <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                            Neil Sims
-                        </p>
-                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                            email@windster.com
+                            {{ $transaction['itemId'] }} ini item id
                         </p>
                     </div>
                     <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                        $320
+                        {{ $transaction['totalPrice'] }}
                     </div>
                 </div>
             </li>
-            <li class="py-3 sm:py-4">
-                <div class="flex items-center ">
-                    <div class="flex-shrink-0">
-                        <img class="w-8 h-8 rounded-full" src="{{ asset('img/65.png') }}" alt="Bonnie image">
-                    </div>
-                    <div class="flex-1 min-w-0 ms-4">
-                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                            Bonnie Green
-                        </p>
-                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                            email@windster.com
-                        </p>
-                    </div>
-                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                        $3467
-                    </div>
-                </div>
-            </li>
-            <li class="py-3 sm:py-4">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <img class="w-8 h-8 rounded-full" src="{{ asset('img/65.png') }}" alt="Michael image">
-                    </div>
-                    <div class="flex-1 min-w-0 ms-4">
-                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                            Michael Gough
-                        </p>
-                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                            email@windster.com
-                        </p>
-                    </div>
-                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                        $67
-                    </div>
-                </div>
-            </li>
-            <li class="py-3 sm:py-4">
-                <div class="flex items-center ">
-                    <div class="flex-shrink-0">
-                        <img class="w-8 h-8 rounded-full" src="{{ asset('img/65.png') }}" alt="Lana image">
-                    </div>
-                    <div class="flex-1 min-w-0 ms-4">
-                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                            Lana Byrd
-                        </p>
-                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                            email@windster.com
-                        </p>
-                    </div>
-                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                        $367
-                    </div>
-                </div>
-            </li>
-            <li class="pt-3 pb-0 sm:pt-4">
-                <div class="flex items-center ">
-                    <div class="flex-shrink-0">
-                        <img class="w-8 h-8 rounded-full" src="{{ asset('img/65.png') }}" alt="Thomas image">
-                    </div>
-                    <div class="flex-1 min-w-0 ms-4">
-                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                            Thomes Lean
-                        </p>
-                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                            email@windster.com
-                        </p>
-                    </div>
-                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                        $2367
-                    </div>
-                </div>
-            </li>
+            @endforeach
         </ul>
    </div>
 </div>
@@ -237,102 +120,29 @@
 <div class="w-full p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
     <div class="flex items-center justify-between mb-4">
         <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Popular Products</h5>
-        <a href="#" class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">
+        <a href="/items" class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">
             View all
         </a>
    </div>
    <div class="flow-root">
         <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+            @foreach ($items as $item)
             <li class="py-3 sm:py-4">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
-                        <img class="w-8 h-8 rounded-full" src="{{ asset('img/65.png') }}" alt="Neil image">
+                        <img class="w-8 h-8 rounded-full" src="{{ $item['image'] }}" alt="Neil image">
                     </div>
                     <div class="flex-1 min-w-0 ms-4">
                         <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                            Neil Sims
-                        </p>
-                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                            email@windster.com
+                            {{ $item['name'] }}
                         </p>
                     </div>
                     <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                        $320
+                        {{ "Rp. " . number_format($item['price'], 0, ',', '.') }}
                     </div>
                 </div>
             </li>
-            <li class="py-3 sm:py-4">
-                <div class="flex items-center ">
-                    <div class="flex-shrink-0">
-                        <img class="w-8 h-8 rounded-full" src="{{ asset('img/65.png') }}" alt="Bonnie image">
-                    </div>
-                    <div class="flex-1 min-w-0 ms-4">
-                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                            Bonnie Green
-                        </p>
-                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                            email@windster.com
-                        </p>
-                    </div>
-                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                        $3467
-                    </div>
-                </div>
-            </li>
-            <li class="py-3 sm:py-4">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <img class="w-8 h-8 rounded-full" src="{{ asset('img/65.png') }}" alt="Michael image">
-                    </div>
-                    <div class="flex-1 min-w-0 ms-4">
-                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                            Michael Gough
-                        </p>
-                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                            email@windster.com
-                        </p>
-                    </div>
-                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                        $67
-                    </div>
-                </div>
-            </li>
-            <li class="py-3 sm:py-4">
-                <div class="flex items-center ">
-                    <div class="flex-shrink-0">
-                        <img class="w-8 h-8 rounded-full" src="{{ asset('img/65.png') }}" alt="Lana image">
-                    </div>
-                    <div class="flex-1 min-w-0 ms-4">
-                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                            Lana Byrd
-                        </p>
-                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                            email@windster.com
-                        </p>
-                    </div>
-                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                        $367
-                    </div>
-                </div>
-            </li>
-            <li class="pt-3 pb-0 sm:pt-4">
-                <div class="flex items-center ">
-                    <div class="flex-shrink-0">
-                        <img class="w-8 h-8 rounded-full" src="{{ asset('img/65.png') }}" alt="Thomas image">
-                    </div>
-                    <div class="flex-1 min-w-0 ms-4">
-                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                            Thomes Lean
-                        </p>
-                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                            email@windster.com
-                        </p>
-                    </div>
-                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                        $2367
-                    </div>
-                </div>
-            </li>
+            @endforeach
         </ul>
    </div>
 </div>
@@ -366,28 +176,12 @@
                 <div class="hidden p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800" id="stats" role="tabpanel" aria-labelledby="stats-tab">
                     <dl class="grid max-w-screen-xl grid-cols-2 sm:grid-cols-3 gap-8 p-4 mx-auto text-gray-900 dark:text-white sm:p-8">
                         <div class="flex flex-col items-center justify-center">
-                            <dt class="mb-2 text-3xl font-extrabold">73M+</dt>
-                            <dd class="text-gray-500 dark:text-gray-400">Developers</dd>
+                            <dt class="mb-2 text-3xl font-extrabold">{{ $countItems }}</dt>
+                            <dd class="text-gray-500 dark:text-gray-400">Jenis Produk</dd>
                         </div>
                         <div class="flex flex-col items-center justify-center">
-                            <dt class="mb-2 text-3xl font-extrabold">100M+</dt>
-                            <dd class="text-gray-500 dark:text-gray-400">Public repositories</dd>
-                        </div>
-                        <div class="flex flex-col items-center justify-center">
-                            <dt class="mb-2 text-3xl font-extrabold">1000s</dt>
-                            <dd class="text-gray-500 dark:text-gray-400">Open source projects</dd>
-                        </div>
-                        <div class="flex flex-col items-center justify-center">
-                            <dt class="mb-2 text-3xl font-extrabold">1B+</dt>
-                            <dd class="text-gray-500 dark:text-gray-400">Contributors</dd>
-                        </div>
-                        <div class="flex flex-col items-center justify-center">
-                            <dt class="mb-2 text-3xl font-extrabold">90+</dt>
-                            <dd class="text-gray-500 dark:text-gray-400">Top Forbes companies</dd>
-                        </div>
-                        <div class="flex flex-col items-center justify-center">
-                            <dt class="mb-2 text-3xl font-extrabold">4M+</dt>
-                            <dd class="text-gray-500 dark:text-gray-400">Organizations</dd>
+                            <dt class="mb-2 text-3xl font-extrabold">{{ $countTransaction }}</dt>
+                            <dd class="text-gray-500 dark:text-gray-400">Transaksi</dd>
                         </div>
                     </dl>
                 </div>

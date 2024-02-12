@@ -129,7 +129,7 @@
                                     </button>
                                 </div>
                                 <!-- Modal body -->
-                                <form action="{{ route('update.item') }}" method="POST" enctype="multipart/form-data">
+                                <form action="/" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="grid gap-4 mb-4 sm:grid-cols-2">
                                         <div>

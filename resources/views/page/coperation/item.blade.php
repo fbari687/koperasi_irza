@@ -64,220 +64,30 @@
         @endif
 
         <div class="h-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+            @foreach ($ranItems as $item)
             <div class="rounded-lg dark:border-gray-600 h-max">
                 <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
                     style="background-image: url('/img/bg-card.jpg'); background-repeat: no-repeat">
-                    <a href="#" class="flex justify-center">
-                        <img class="p-8 w-auto rounded-t-lg h-[250px]" src="img/products/kebab.png" alt="product image" />
-                    </a>
+                    <div class="flex justify-center">
+                        <img class="p-8 w-auto rounded-t-lg h-[250px]" src="{{ $item['image'] }}" alt="product image" />
+                    </div>
                     <div class="px-5 pb-5">
                         <a href="#">
                             {{-- <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{{ ucfirst($random->nama_barang) }}</h5> --}}
-                            <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">Ini Nama Barang
+                            <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{{ $item['name'] }}
                             </h5>
                             {{-- <h5 class="text-md tracking-tight text-gray-900 dark:text-white">{{ $random->deskripsi }}</h5> --}}
-                            <h5 class="text-md tracking-tight text-gray-900 dark:text-white">Ini Deskripsi Barang</h5>
+                            <h5 class="text-base font-light tracking-tight text-gray-900 dark:text-white">{{ $item['description'] }}</h5>
                         </a>
-                        <div class="flex items-center mt-2.5 mb-5">
-                            <div class="flex items-center space-x-1 rtl:space-x-reverse">
-                                <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                    fill="currentColor" viewBox="0 0 22 20">
-                                    <path
-                                        d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                </svg>
-                                <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                    fill="currentColor" viewBox="0 0 22 20">
-                                    <path
-                                        d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                </svg>
-                                <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                    fill="currentColor" viewBox="0 0 22 20">
-                                    <path
-                                        d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                </svg>
-                                <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                    fill="currentColor" viewBox="0 0 22 20">
-                                    <path
-                                        d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                </svg>
-                                <svg class="w-4 h-4 text-gray-200 dark:text-gray-600" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                    <path
-                                        d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                </svg>
-                            </div>
-                            <span
-                                class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3">4.0</span>
-                        </div>
                         <div class="flex items-center justify-between">
                             {{-- <span class="text-3xl font-bold text-gray-900 dark:text-white">{{ "Rp. " . number_format($random->harga, 0, ',', '.') }}</span> --}}
-                            <span class="text-3xl font-bold text-gray-900 dark:text-white">Rp 18.000</span>
+                            <span class="text-3xl font-bold text-gray-900 dark:text-white">{{ "Rp. " . number_format($item['price'], 0, ',', '.') }}</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="rounded-lg dark:border-gray-600 h-max">
-                <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-                    style="background-image: url('/img/bg-card.jpg'); background-repeat: no-repeat">
-                    <a href="#" class="flex justify-center">
-                        <img class="p-8 w-auto rounded-t-lg h-[250px]" src="img/products/kebab.png"
-                            alt="product image" />
-                    </a>
-                    <div class="px-5 pb-5">
-                        <a href="#">
-                            {{-- <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{{ ucfirst($random->nama_barang) }}</h5> --}}
-                            <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">Ini Nama Barang
-                            </h5>
-                            {{-- <h5 class="text-md tracking-tight text-gray-900 dark:text-white">{{ $random->deskripsi }}</h5> --}}
-                            <h5 class="text-md tracking-tight text-gray-900 dark:text-white">Ini Deskripsi Barang</h5>
-                        </a>
-                        <div class="flex items-center mt-2.5 mb-5">
-                            <div class="flex items-center space-x-1 rtl:space-x-reverse">
-                                <svg class="w-4 h-4 text-yellow-300" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                    <path
-                                        d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                </svg>
-                                <svg class="w-4 h-4 text-yellow-300" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                    <path
-                                        d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                </svg>
-                                <svg class="w-4 h-4 text-yellow-300" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                    <path
-                                        d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                </svg>
-                                <svg class="w-4 h-4 text-yellow-300" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                    <path
-                                        d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                </svg>
-                                <svg class="w-4 h-4 text-gray-200 dark:text-gray-600" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                    <path
-                                        d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                </svg>
-                            </div>
-                            <span
-                                class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3">4.0</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            {{-- <span class="text-3xl font-bold text-gray-900 dark:text-white">{{ "Rp. " . number_format($random->harga, 0, ',', '.') }}</span> --}}
-                            <span class="text-3xl font-bold text-gray-900 dark:text-white">Rp 18.000</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="rounded-lg dark:border-gray-600 h-max">
-                <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-                    style="background-image: url('/img/bg-card.jpg'); background-repeat: no-repeat">
-                    <a href="#" class="flex justify-center">
-                        <img class="p-8 w-auto rounded-t-lg h-[250px]" src="img/products/kebab.png"
-                            alt="product image" />
-                    </a>
-                    <div class="px-5 pb-5">
-                        <a href="#">
-                            {{-- <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{{ ucfirst($random->nama_barang) }}</h5> --}}
-                            <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">Ini Nama Barang
-                            </h5>
-                            {{-- <h5 class="text-md tracking-tight text-gray-900 dark:text-white">{{ $random->deskripsi }}</h5> --}}
-                            <h5 class="text-md tracking-tight text-gray-900 dark:text-white">Ini Deskripsi Barang</h5>
-                        </a>
-                        <div class="flex items-center mt-2.5 mb-5">
-                            <div class="flex items-center space-x-1 rtl:space-x-reverse">
-                                <svg class="w-4 h-4 text-yellow-300" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                    <path
-                                        d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                </svg>
-                                <svg class="w-4 h-4 text-yellow-300" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                    <path
-                                        d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                </svg>
-                                <svg class="w-4 h-4 text-yellow-300" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                    <path
-                                        d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                </svg>
-                                <svg class="w-4 h-4 text-yellow-300" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                    <path
-                                        d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                </svg>
-                                <svg class="w-4 h-4 text-gray-200 dark:text-gray-600" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                    <path
-                                        d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                </svg>
-                            </div>
-                            <span
-                                class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3">4.0</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            {{-- <span class="text-3xl font-bold text-gray-900 dark:text-white">{{ "Rp. " . number_format($random->harga, 0, ',', '.') }}</span> --}}
-                            <span class="text-3xl font-bold text-gray-900 dark:text-white">Rp 18.000</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="rounded-lg dark:border-gray-600 h-max">
-                <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-                    style="background-image: url('/img/bg-card.jpg'); background-repeat: no-repeat">
-                    <a href="#" class="flex justify-center">
-                        <img class="p-8 w-auto rounded-t-lg h-[250px]" src="img/products/kebab.png"
-                            alt="product image" />
-                    </a>
-                    <div class="px-5 pb-5">
-                        <a href="#">
-                            {{-- <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{{ ucfirst($random->nama_barang) }}</h5> --}}
-                            <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">Ini Nama Barang
-                            </h5>
-                            {{-- <h5 class="text-md tracking-tight text-gray-900 dark:text-white">{{ $random->deskripsi }}</h5> --}}
-                            <h5 class="text-md tracking-tight text-gray-900 dark:text-white">Ini Deskripsi Barang</h5>
-                        </a>
-                        <div class="flex items-center mt-2.5 mb-5">
-                            <div class="flex items-center space-x-1 rtl:space-x-reverse">
-                                <svg class="w-4 h-4 text-yellow-300" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                    <path
-                                        d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                </svg>
-                                <svg class="w-4 h-4 text-yellow-300" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                    <path
-                                        d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                </svg>
-                                <svg class="w-4 h-4 text-yellow-300" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                    <path
-                                        d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                </svg>
-                                <svg class="w-4 h-4 text-yellow-300" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                    <path
-                                        d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                </svg>
-                                <svg class="w-4 h-4 text-gray-200 dark:text-gray-600" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                    <path
-                                        d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                </svg>
-                            </div>
-                            <span
-                                class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3">4.0</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            {{-- <span class="text-3xl font-bold text-gray-900 dark:text-white">{{ "Rp. " . number_format($random->harga, 0, ',', '.') }}</span> --}}
-                            <span class="text-3xl font-bold text-gray-900 dark:text-white">Rp 18.000</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endforeach
 
 
         </div>
@@ -312,14 +122,14 @@
                                     </button>
                                 </div>
                                 <!-- Modal body -->
-                                <form id="itemAddForm" action="{{ route('items.add') }}" method="POST" enctype="multipart/form-data">
+                                <form id="itemAddForm" action="{{ route('items.add') }}" method="POST" onsubmit="updateItem(this)" enctype="multipart/form-data">
                                     @csrf
 
-                                    @if ($errors->any())
+                                    {{-- @if ($errors->any())
                                         @foreach ($errors->all() as $error)
                                             {{ $error }}
                                         @endforeach
-                                    @endif
+                                    @endif --}}
                                     <div class="grid gap-4 mb-4 sm:grid-cols-2">
 
                                         <div>
@@ -362,7 +172,7 @@
                                             <img id="imagePreviewEdit" src="{{ asset('img/no-data.jpg') }}"
                                                 alt="Preview" class=""
                                                 style="box-shadow: rgba(50, 50, 93, 0.077) 0px 6px 12px -2px, rgba(0, 0, 0, 0.061) 0px 3px 7px -3px; border-radius: 10px; display: ; border: 1px solid rgba(0, 0, 0, 0.161); max-width: 300px; min-width: 300px; width: 100%; aspect-ratio: 1/1">
-                                            <input type="file" accept="image/*" id="gambarEdit imageAdd" name="image"
+                                            <input type="file" accept="image/*" id="gambarEdit" name="image"
                                                 class="mt-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                             <script>
                                                 document.addEventListener('DOMContentLoaded', function() {
@@ -422,15 +232,16 @@
                                 <form action="{{ route('item.edit') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     @method('put')
+                                    <input type="hidden" hidden name="oldImage" value="" id="oldImage">
                                     <div class="grid gap-4 mb-4 sm:grid-cols-2">
                                         <div>
                                             <label for="selItems"
                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pilih
                                                 Barang</label>
-                                            <select name="id" id="selItems"
+                                            <select name="id" id="selItems" onchange="getItem(this)"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                                 <option selected disabled>Pilih Barang</option>
-                                                @foreach ($data as $item)
+                                                @foreach ($items as $item)
                                                     <option value="{{ $item['id'] }}">{{ ucfirst($item['name']) }}
                                                     </option>
                                                 @endforeach
@@ -499,11 +310,6 @@
                                                 });
                                             </script>
                                         </div>
-
-
-
-
-
                                     </div>
                                     <button type="submit"
                                         class="mr-4 block text-white bg-blue-700 hover:bg-primary-800 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:hover:bg-green-700">
@@ -536,7 +342,7 @@
                                     stroke-width="2" d="m1 1 4 4 4-4" />
                             </svg>
                         </button>
-                        <svg id="load-filter" aria-hidden="true"
+                        {{-- <svg id="load-filter" aria-hidden="true"
                             class="w-7 h-7 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
                             viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -545,7 +351,7 @@
                             <path
                                 d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
                                 fill="currentFill" />
-                        </svg>
+                        </svg> --}}
                         <!-- Dropdown menu -->
                         <div id="dropdownAction"
                             class="z-[999] hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
@@ -676,18 +482,18 @@
                         </th>
                     </tr> --}}
 
-                        {{-- @foreach ($data as $item)
+                        @foreach ($items as $item)
                             <tr
                                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
 
                                 <th scope="row"
                                     class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
-                                    <img class="w-10 h-10 rounded-full" src="{{ asset('storage/' . $item['image']) }}"
+                                    <img class="w-10 h-10 rounded-full" src="{{ $item['image'] }}"
                                         alt="Jese image">
                                     <div class="ps-3">
                                         <div class="text-base font-semibold">{{ $loop->iteration }}. {{ $item['name'] }}
                                         </div>
-                                        <div class="font-normal text-gray-500">Rp. {{ number_format($item['price']) }}
+                                        <div class="font-normal text-gray-500">Rp. {{ number_format($item['price'], 0, ',', '.') }}
                                         </div>
                                     </div>
                                 </th>
@@ -698,6 +504,9 @@
                                     {{ $item['stock'] }}
                                 </td>
                                 <td class="px-6 py-4">
+                                    {{ $item['total_sold'] }}
+                                </td>
+                                <td class="px-6 py-4">
                                     <div class="flex items-center">
 
                                         <div class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div>
@@ -706,18 +515,21 @@
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 text-right">
-                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500"><button
-                                            class="p-3 bg-blue-700 text-white rounded-lg active:scale-95">Unduh
-                                            Laporan</button></a>
+                                    <form action="/items/{{ $item['id'] }}" method="POST">
+                                        @csrf
+                                        @method('delete')
+                                        <button value="{{ $item['id'] }}" type="submit" class="font-medium text-red-600 dark:text-red-500"><button
+                                                class="p-3 bg-red-700 text-white rounded-lg active:scale-95">Delete</button></button>
+                                    </form>
                                 </td>
                             </tr>
-                        @endforeach --}}
+                        @endforeach
                     </tbody>
                 </table>
 
                 <!-- Tambahkan tag <script> ini di dalam halaman Anda -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
+{{-- <script>
     $(document).ready(function() {
         // Fungsi untuk memperbarui tabel dengan data baru
         function updateTable(data) {
@@ -770,7 +582,7 @@
     });
     $(document).ready(function() {
         // Fungsi untuk menghapus item
-    function deleteItem(itemId) {
+        function deleteItem(itemId) {
         var csrfToken = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
             type: 'DELETE',
@@ -795,10 +607,49 @@
         if (confirmation) {
             deleteItem(itemId); // Panggil fungsi deleteItem jika pengguna mengonfirmasi
         }
+        });
     });
-});
 
 
+
+</script> --}}
+
+<script>
+    $(document).ready(function() {
+        function fetchData() {
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:3000/items/get",
+                success: function (response) {
+                    console.log(response.data);
+                },
+                error: function (xhr, status, error) {
+
+                }
+            });
+        }
+
+    })
+    const edit_name = document.getElementById('edit_name');
+    const edit_harga = document.getElementById('edit_harga');
+    const edit_stok = document.getElementById('edit_stok');
+    const edit_deskripsi = document.getElementById('edit_deskripsi');
+    const imagePreview = document.getElementById('imagePreview');
+    const oldImage = document.getElementById('oldImage');
+    function getItem(e) {
+        $.ajax({
+            type: "get",
+            url: `${window.location.origin}/item/${e.value}`,
+            success: function (response) {
+                edit_name.value = response.data.name;
+                edit_harga.value = response.data.price;
+                edit_stok.value = response.data.stock;
+                edit_deskripsi.innerHTML = response.data.description;
+                imagePreview.src = response.data.image;
+                oldImage.value = response.data.image;
+            }
+        });
+    }
 
 </script>
 

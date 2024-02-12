@@ -10,8 +10,7 @@
         "beyondcode/laravel-websockets": "^1.14",
         "guzzlehttp/guzzle": "^7.8",
         "laravel/framework": "^9.19",
-        "laravel/passport": "^11.10",
-        "laravel/sanctum": "^3.0",
+        "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.7",
         "pusher/pusher-php-server": "^7.2"
     },

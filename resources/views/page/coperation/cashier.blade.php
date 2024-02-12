@@ -30,11 +30,13 @@
         <ul class="listCard">
         </ul>
         <div class="checkOut">
+            <input type="hidden" id="totalPrice" name="totalPrice">
             <button type="submit" class="total">0</button>
-            <div class="closeShopping">Close</div>
+            <a href="/dashboard" class="closeShopping">Close</a>
         </div>
     </form>
 
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
         let openShopping = document.querySelector('.shopping');
         let closeShopping = document.querySelector('.closeShopping');
@@ -43,6 +45,7 @@
         let body = document.querySelector('body');
         let total = document.querySelector('.total');
         let quantity = document.querySelector('.quantity');
+        let totalPriceTag = document.querySelector('#totalPrice');
 
         openShopping.addEventListener('click', () => {
             body.classList.add('active');
@@ -51,69 +54,24 @@
             body.classList.remove('active');
         })
 
-        let products = [{
-                id: 1,
-                name: 'SEKOLAH MISKIN 1',
-                image: '1.PNG',
-                price: 120000
-            },
-            {
-                id: 2,
-                name: 'SEKOLAH MISKIN 2',
-                image: '2.PNG',
-                price: 120000
-            },
-            {
-                id: 3,
-                name: 'SEKOLAH MISKIN 3',
-                image: '3.PNG',
-                price: 220000
-            },
-            {
-                id: 4,
-                name: 'SEKOLAH MISKIN 4',
-                image: '4.PNG',
-                price: 123000
-            },
-            {
-                id: 5,
-                name: 'SEKOLAH MISKIN 5',
-                image: '5.PNG',
-                price: 320000
-            },
-            {
-                id: 6,
-                name: 'SEKOLAH MISKIN 6',
-                image: '6.PNG',
-                price: 120000
-            },
-            {
-                id: 7,
-                name: 'SEKOLAH MISKIN 7',
-                image: '6.PNG',
-                price: 120000
-            },
-            {
-                id: 8,
-                name: 'SEKOLAH MISKIN 8',
-                image: '6.PNG',
-                price: 120000
-            },
-            {
-                id: 9,
-                name: 'SEKOLAH MISKIN 9',
-                image: '6.PNG',
-                price: 120000
-            },
-            {
-                id: 10,
-                name: 'SEKOLAH MISKIN 10',
-                image: '6.PNG',
-                price: 120000
-            },
+        let products = [
         ];
+
+        const fetchData = async() => {
+            try {
+                const response = await axios.get(`${window.location.origin}/items/get`);
+                const items = response.data.data;
+                products = [...items];
+            } catch (err) {
+                console.error(err)
+            }
+            initApp();
+        }
+
+
         let listCards = [];
 
+        fetchData();
         function initApp() {
             products.forEach((value, key) => {
                 let newDiv = document.createElement('div');
@@ -121,12 +79,12 @@
                 newDiv.innerHTML = `
             <img src="{{ asset('img/65.png') }}">
             <div class="title">${value.name}</div>
-            <div class="price">${value.price.toLocaleString()}</div>
+            <div class="price">${parseInt(value.price).toLocaleString()}</div>
             <button onclick="addToCard(${key})">Add To Card</button>`;
                 list.appendChild(newDiv);
             })
         }
-        initApp();
+
 
         function addToCard(key) {
             if (listCards[key] == null) {
@@ -152,8 +110,8 @@
                     newDiv.innerHTML = `
                 <div><img src="{{ asset('img/65.png') }}"/></div>
                 <div>${value.name}</div>
-                <input type="hidden" value="${value.id}" name="product[]">
-                <input type="hidden" value="${value.quantity}" name="total[]">
+                <input type="hidden" value="${value.id}" name="itemId[]">
+                <input type="hidden" value="${value.quantity}" name="quantity[]">
                 <div>${value.price.toLocaleString()}</div>
                 <div>
                     <button onclick="changeQuantity(${key}, ${value.quantity - 1})">-</button>
@@ -164,6 +122,7 @@
                 }
             })
             total.innerText = totalPrice.toLocaleString();
+            totalPriceTag.value = totalPrice;
             quantity.innerText = count;
         }
 
