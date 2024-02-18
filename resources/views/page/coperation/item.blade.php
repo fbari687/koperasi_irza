@@ -529,6 +529,81 @@
 
                 <!-- Tambahkan tag <script> ini di dalam halaman Anda -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    const itemsValueWrapper = document.getElementById('items-value');
+
+    const filterItem = async (filter) => {
+        let baseurl = window.location.origin;
+        let url = `${baseurl}/items/get`;
+        if (filter === "terlaris") {
+            url = `${baseurl}/items/get?sold=${filter}`;
+        } else if (filter === "tersepi") {
+            url = `${baseurl}/items/get?sold=${filter}`;
+        } else if (filter === "terbanyak") {
+            url = `${baseurl}/items/get?stock=${filter}`;
+        } else if (filter === "tersedikit") {
+            url = `${baseurl}/items/get?stock=${filter}`;
+        } else if (filter === "available") {
+            url = `${baseurl}/items/get?status=${filter}`;
+        } else if (filter === "unavailable") {
+            url = `${baseurl}/items/get?status=${filter}`;
+        } else {
+            url = `${baseurl}/items/get`;
+        }
+        let element = ``;
+
+        try {
+            const response = await axios.get(url);
+            const items = response.data.data;
+            items.forEach((item, i) => {
+                element += `<tr
+                                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+
+                                <th scope="row"
+                                    class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                                    <img class="w-10 h-10 rounded-full" src="${item.image}"
+                                        alt="Jese image">
+                                    <div class="ps-3">
+                                        <div class="text-base font-semibold">${i + 1}. ${item.name}
+                                        </div>
+                                        <div class="font-normal text-gray-500">Rp. ${parseInt(item.price).toLocaleString()}
+                                        </div>
+                                    </div>
+                                </th>
+                                <td class="px-6 py-4">
+                                    ${item.description}
+                                </td>
+                                <td class="px-6 py-4">
+                                    ${item.stock}
+                                </td>
+                                <td class="px-6 py-4">
+                                    ${item.total_sold}
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center">
+
+                                        <div class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div>
+                                        ${item.status}
+
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <form action="/items/${item.id}" method="POST">
+                                        @csrf
+                                        @method('delete')
+                                        <button value="${item.id}" type="submit" class="font-medium text-red-600 dark:text-red-500"><button
+                                                class="p-3 bg-red-700 text-white rounded-lg active:scale-95">Delete</button></button>
+                                    </form>
+                                </td>
+                            </tr>`
+            });
+            itemsValueWrapper.innerHTML = element;
+        } catch (error) {
+            console.log(error);
+        }
+    };
+</script>
 {{-- <script>
     $(document).ready(function() {
         // Fungsi untuk memperbarui tabel dengan data baru

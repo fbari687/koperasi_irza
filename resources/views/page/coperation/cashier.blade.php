@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kasir</title>
     <link rel="stylesheet" href="{{ asset('css/cashier.css') }}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
 
 <body class="">
@@ -37,6 +38,18 @@
     </form>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    @if (session('success'))
+    <script>
+        Toastify({
+            text: "Berhasil Checkout",
+            className: "info",
+            style: {
+                background: "linear-gradient(to right, #00b09b, #96c93d)",
+            }
+        }).showToast();
+        </script>
+    @endif
     <script>
         let openShopping = document.querySelector('.shopping');
         let closeShopping = document.querySelector('.closeShopping');
@@ -77,7 +90,7 @@
                 let newDiv = document.createElement('div');
                 newDiv.classList.add('item');
                 newDiv.innerHTML = `
-            <img src="{{ asset('img/65.png') }}">
+            <img src="${value.image}">
             <div class="title">${value.name}</div>
             <div class="price">${parseInt(value.price).toLocaleString()}</div>
             <button onclick="addToCard(${key})">Add To Card</button>`;

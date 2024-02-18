@@ -41,14 +41,13 @@ class KasirController extends Controller
             $item = [
                 'itemId' => (int)$validated['itemId'][$i],
                 'quantity' => (int)$validated['quantity'][$i],
-                'transactionDate' => Carbon::now()
             ];
             $outputData[] = $item;
         }
 
         $data = [
-            'totalPrice' => (int)$validated['totalPrice'],
-            'data' => $outputData
+            'prices' => (int)$validated['totalPrice'],
+            'items' => $outputData
         ];
 
         try {
@@ -57,7 +56,7 @@ class KasirController extends Controller
             if ($response->failed()) {
                 throw new Exception('API request failed with status code ' . $response->status());
             }
-            return redirect('/cashier');
+            return redirect('/cashier')->with('success', 'Berhasil Checkout');
         } catch (Throwable $th) {
             dd($th);
         }

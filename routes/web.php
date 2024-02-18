@@ -41,18 +41,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/transactions', [PageController::class, 'transactionView']);
 
-
-    Route::post('/test-api', [PageController::class, 'testAddApi'])->name('testAddApi');
-    Route::put('/test-api/{id}', [PageController::class, 'testPutApi'])->name('testPutApi');
-    Route::delete('/test-api/{id}', [PageController::class, 'testDeleteApi'])->name('testDeleteApi');
-    Route::get('/test-api/{id}', [PageController::class, 'testViewApi'])->name('testViewApi');
-    Route::post('/test-api/delete', [PageController::class, 'testDelWhichApi'])->name('testDelWhichApi');
-
-
-
     Route::get('/cashier', [KasirController::class, 'index']);
     Route::post('/cashier', [KasirController::class, 'submit'])->name('cashier.submit');
 
+    Route::get('/timetable', [PageController::class, 'timetableView']);
 
 
 

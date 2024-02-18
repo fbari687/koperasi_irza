@@ -6,6 +6,7 @@ use App\Models\User;
 use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -137,7 +138,7 @@ class PageController extends Controller
     public function item()
     {
         // $items = Item::orderBy('created_at', 'desc')->get();
-        $filters = ['terbaru', 'terlama', 'termahal', 'termurah', 'tersedia', 'habis'];
+        $filters = ['terlaris', 'tersepi', 'terbanyak', 'tersedikit', 'available', 'unavailable'];
 
         $response = Http::get($this->apiEndpoint . "/item");
         $json = json_decode($response, true);
@@ -171,7 +172,16 @@ class PageController extends Controller
 
     public function getItems(Request $request)
     {
-        $response = Http::get($this->apiEndpoint . "/item");
+        $url = $this->apiEndpoint . "/item";
+        if ($request->query('sold')) {
+            $url = $this->apiEndpoint . "/item?sold=" . $request->query('sold');
+        } else if ($request->query('stock')) {
+            $url = $this->apiEndpoint . "/item?stock=" . $request->query('stock');
+        } else if ($request->query('status')) {
+            $url = $this->apiEndpoint . "/item?status=" . $request->query('status');
+        }
+
+        $response = Http::get($url);
         $json = json_decode($response, true);
         $items = collect($json['data']);
         $items = $items->all();
@@ -332,9 +342,15 @@ class PageController extends Controller
 
     public function report()
     {
+        $response = Http::get($this->apiEndpoint . "/transaction");
+        $data = json_decode($response, true);
+        $transactionsData = $data['data'];
+        $transactions = collect($transactionsData);
+
         return view('page.coperation.report', [
             'title' => "Koperasi - Laporan",
-            'bgMenu' => 'report'
+            'bgMenu' => 'report',
+            'transactions' => $transactions
         ]);
     }
 
@@ -449,8 +465,44 @@ class PageController extends Controller
 
         return view('page.coperation.transaction', [
             'title' => 'Koperasi - Transaksi',
-            'bgMenu' => "Transaksi",
+            'bgMenu' => "transaksi",
             'transactions' => $transactions
+        ]);
+    }
+
+    public function timetableView()
+    {
+        $timetables = [
+            [
+                'title' => 1,
+                'start' => '2024-02-14',
+                'allDay' => true
+            ],
+            [
+                'title' => 1,
+                'start' => '2024-02-15',
+                'allDay' => true
+            ],
+        ];
+
+        $collection = new Collection();
+        foreach ($timetables as $timetable) {
+            $collection->push((object)[
+                'title' => User::where('id', $timetable['title'])->first()->name,
+                'start' => $timetable['start'],
+                'allDay' => $timetable['allDay']
+            ]);
+        }
+
+        $timetable = $collection->all();
+
+        $users = User::all();
+
+        return view('page.coperation.timetable', [
+            'title' => 'Koperasi - Jadwal',
+            'bgMenu' => "Jadwal",
+            'timetables' => $timetable,
+            'users' => $users
         ]);
     }
 }

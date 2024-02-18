@@ -100,13 +100,15 @@
             @foreach ($transactions as $transaction)
             <li class="py-3 sm:py-4">
                 <div class="flex items-center">
-                    <div class="flex-1 min-w-0 ms-4">
+                    <div class="flex-1 flex flex-col min-w-0 ms-4">
+                        @foreach ($transaction['items'] as $item)
                         <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                            {{ $transaction['itemId'] }} ini item id
+                            {{ $item['detail']['name'] }} ({{ $item['quantity'] }})
                         </p>
+                        @endforeach
                     </div>
                     <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                        {{ $transaction['totalPrice'] }}
+                        {{ $transaction['prices'] }}
                     </div>
                 </div>
             </li>
